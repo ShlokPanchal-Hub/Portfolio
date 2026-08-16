@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shlok Panchal — Data Scientist & AI/ML Engineer</title>
+  <meta name="description" content="Portfolio of Shlok Panchal — Data Scientist & Full-Stack AI Engineer based in Mumbai, India. Building multimodal visual search, reinforcement learning agents, and robust systems.">
+  <meta property="og:title" content="Shlok Panchal — Data Scientist & AI/ML Engineer">
+  <meta property="og:description" content="Interactive scrapbook portfolio with visual search engines, reinforcement learning agents, and full-stack systems.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Caveat:wght@400..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Delicious+Handrawn&family=Geist+Mono:wght@300;400;500;600;700&family=Gochi+Hand&family=Lilita+One&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/scrapbook.css">
+  <link rel="stylesheet" href="css/work-journey.css">
+  <link rel="stylesheet" href="css/cutting-board.css">
+  <link rel="stylesheet" href="css/checklist.css">
+
+  <!-- GSAP & Canvas Confetti CDNs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
+
+  <!-- Application Scripts -->
+  <script src="js/main.js" defer></script>
+  <script src="js/gsap-animations.js" defer></script>
+  <script src="js/draggable-board.js" defer></script>
+  <script src="js/peek-bio.js" defer></script>
+  <script src="js/interactive-checklist.js" defer></script>
+</head>
+<body>
+
+  <!-- Paper Grain Subtle Texture -->
+  <div class="paper-grain-overlay"></div>
+
+  <!-- SVG Global Sprite Definitions -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <!-- Clean Handcrafted Scribble Frame Box for Nav (No Jackie Cursive) -->
+    <symbol id="svg-scribble-box" viewBox="0 0 120 40">
+      <path d="M 6 14 C 20 6, 85 4, 112 8 C 117 9, 117 28, 112 33 C 85 38, 25 38, 7 32 C 1 30, 2 16, 8 11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M 12 35 C 38 37, 85 36, 108 34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- Paperclip Icon -->
+    <symbol id="svg-paperclip" viewBox="0 0 24 45">
+      <path d="M 12 2 C 7 2 3 6 3 11 L 3 34 C 3 39 7 43 12 43 C 17 43 21 39 21 34 L 21 14 C 21 11 18.5 8.5 15.5 8.5 C 12.5 8.5 10 11 10 14 L 10 32 C 10 33 11 34 12 34 C 13 34 14 33 14 32 L 14 14 C 14 13 14.5 12.5 15.5 12.5 C 16.5 12.5 17 13 17 14 L 17 34 C 17 37 14.8 39 12 39 C 9.2 39 7 37 7 34 L 7 11 C 7 8.2 9.2 6 12 6 C 14.8 6 17 8.2 17 11 L 17 24" fill="none" stroke="#78716c" stroke-width="2.4" stroke-linecap="round"/>
+    </symbol>
+  </svg>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="header-inner container">
+      <!-- Left: Logo & Shlok Photo -->
+      <a href="#hero" class="site-brand">
+        <img src="assets/images/shlok.png" alt="Shlok Panchal" class="brand-avatar">
+        <span class="brand-name">Shlok Panchal</span>
+        <span class="brand-badge">AI / ML</span>
+      </a>
+
+      <!-- Center: Live Mumbai Time -->
+      <div class="header-center-pill">
+        <span class="pulse-dot"></span>
+        <span id="liveMumbaiTime">Mumbai • GMT +5:30</span>
+      </div>
+
+      <!-- Right: Navigation & Lo-Fi Audio Toggle -->
+      <nav class="header-nav">
+        <a href="#about" class="nav-link">
+          <span>About</span>
+          <svg class="nav-scribble"><use href="#svg-scribble-box"/></svg>
+        </a>
+        <a href="#work" class="nav-link active">
+          <span>Work</span>
+          <svg class="nav-scribble"><use href="#svg-scribble-box"/></svg>
+        </a>
+        <a href="#cutting-board" class="nav-link">
+          <span>Workbench</span>
+          <svg class="nav-scribble"><use href="#svg-scribble-box"/></svg>
+        </a>
+        <a href="#checklist" class="nav-link">
+          <span>Checklist</span>
+          <svg class="nav-scribble"><use href="#svg-scribble-box"/></svg>
+        </a>
+        <a href="#connect" class="nav-link">
+          <span>Connect</span>
+          <svg class="nav-scribble"><use href="#svg-scribble-box"/></svg>
+        </a>
+        <button id="musicToggleBtn" class="music-toggle-btn" title="Toggle Lo-Fi Ambient Soundtrack" aria-label="Toggle Lo-Fi Music">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ====================================================================
+         HERO SECTION (Floating Scrapbook & Core Beliefs)
+         ==================================================================== -->
+    <section id="hero" class="hero-section">
+      <!-- Floating Scrapbook Items (Converge into center on scroll via GSAP) -->
+      <div class="hero-floating-elements">
+        <!-- Item 1: FAISS Visual Search Polaroid -->
+        <div class="float-card card-polaroid-faiss">
+          <div class="washi-tape tape-top-center tape-pattern-grid"></div>
+          <img src="assets/images/visual_search.jpg" alt="CLIP & FAISS IVF Search">
+          <div class="caption">FAISS IVF • 600K images</div>
+        </div>
+
+        <!-- Item 2: SmartPark AI RL Agent Polaroid -->
+        <div class="float-card card-polaroid-rl">
+          <div class="washi-tape tape-top-center"></div>
+          <img src="assets/images/smartpark_rl.jpg" alt="Autonomous Parking Simulation">
+          <div class="caption">PPO + GAIL Agent</div>
+        </div>
+
+        <!-- Item 3: "3 things I believe in" Sticky Note -->
+        <div class="float-card card-postit-beliefs">
+          <svg class="paper-clip-svg"><use href="#svg-paperclip"/></svg>
+          <div class="postit-title">3 things I strongly believe in:</div>
+          <ul>
+            <li>Tirelessly pursue clarity in code & data.</li>
+            <li>Engineer for real-world impact & high recall.</li>
+            <li>Intelligent systems should empower people.</li>
+          </ul>
+        </div>
+
+        <!-- Item 4: Tech Stack Stamp Note -->
+        <div class="float-card card-stamp-tech">
+          <div class="washi-tape tape-top-right"></div>
+          <div class="badge-header">
+            <span class="tech-title">Core Toolkit</span>
+            <span class="sticker-badge primary" style="font-size: 0.75rem; padding: 2px 8px;">2026</span>
+          </div>
+          <div class="tech-tags-grid">
+            <span class="tech-tag-chip">PyTorch</span>
+            <span class="tech-tag-chip">FAISS</span>
+            <span class="tech-tag-chip">CLIP</span>
+            <span class="tech-tag-chip">Flutter</span>
+            <span class="tech-tag-chip">ASP.NET 8</span>
+            <span class="tech-tag-chip">Dapper</span>
+            <span class="tech-tag-chip">RL / PPO</span>
+            <span class="tech-tag-chip">SQLite</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Hero Stack -->
+      <div class="hero-main-stack container">
+        <div class="hero-supertitle">
+          <span>Data Scientist & Full-Stack AI Engineer</span>
+        </div>
+
+        <h1 class="hero-title">
+          Intelligent systems<br>
+          <span class="serif-italic">should feel</span><br>
+          natural.
+        </h1>
+
+        <p class="hero-subtitle">
+          Hey there, I'm <strong>Shlok</strong>, an AI/ML builder & Data Scientist based in Mumbai, India. 
+          I turn complex neural embeddings, vector indexing, and high-concurrency architectures into lightning-fast, intuitive tools that help people do their best work.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#work" class="btn-scrapbook-primary">
+            <span>Explore Journey Work</span>
+          </a>
+          <a href="#bioPeek" class="btn-scrapbook-secondary">
+            <span>What's his deal?</span>
+          </a>
+          <a href="Shlok_Panchal-1.pdf" target="_blank" class="btn-scrapbook-secondary">
+            <span>Download Resume PDF</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         WORK JOURNEY SECTION (Luggage Tag, Boarding Pass, VIP Wristband, Postcard)
+         ==================================================================== -->
+    <section id="work" class="work-journey-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">The Journey</div>
+          <h2 class="section-title">Places I've Been, Things I've Built</h2>
+          <p class="section-subtitle">
+            A physical collection of flagship production systems, reinforcement learning agents, and full-stack engineering tools.
+          </p>
+        </div>
+
+        <div class="journey-artefacts-list">
+
+          <!-- ==============================================================
+               ARTEFACT 1: LUGGAGE TAG (Vijay Exports - Production Visual Search)
+               ============================================================== -->
+          <article class="artefact-luggage-tag">
+            <div class="tag-string-loop"></div>
+            <div class="tag-grommet"></div>
+
+            <div class="tag-content-side">
+              <div class="tag-meta-top">
+                <span class="tag-company-pill">Vijay Exports Co. In</span>
+                <span class="tag-period">July 2025 – Present • Mumbai</span>
+              </div>
+
+              <h3 class="tag-title">Production Visual Search Engine</h3>
+              <div class="tag-role-badge">Role • Data Scientist</div>
+
+              <ul class="tag-bullets">
+                <li>
+                  <strong>Cut manual image lookup time by 70%</strong> by designing and deploying a production visual search engine over <strong>600K+ product images</strong> using CLIP ViT-B/32 multimodal embeddings and FAISS IVF indexing.
+                </li>
+                <li>
+                  <strong>Reduced retrieval latency by 65%</strong> and boosted recall on visually similar, mismatched-label products by replacing rigid exact-match keywords with Approximate Nearest Neighbor (ANN) vector retrieval.
+                </li>
+                <li>
+                  <strong>Reduced irrelevant search results by 40%</strong> by engineering a high-speed SQLite metadata layer linking FAISS vector cluster indices directly to SKU IDs and product attributes for structured pre-filtering.
+                </li>
+              </ul>
+
+              <div class="tag-tech-row">
+                <span class="tag-tech-badge">CLIP ViT-B/32</span>
+                <span class="tag-tech-badge">FAISS IVF</span>
+                <span class="tag-tech-badge">Python</span>
+                <span class="tag-tech-badge">SQLite Metadata</span>
+                <span class="tag-tech-badge">PyTorch</span>
+                <span class="tag-tech-badge">ANN Vector Search</span>
+              </div>
+            </div>
+
+            <!-- Right Visual Card -->
+            <div class="tag-visual-card">
+              <div class="washi-tape tape-top-center"></div>
+              <img src="assets/images/visual_search.jpg" alt="Visual Search Architecture Diagram">
+              <div class="tag-visual-caption">Multimodal CLIP & FAISS Clustering Pipeline</div>
+            </div>
+          </article>
+
+          <!-- ==============================================================
+               ARTEFACT 2: BOARDING PASS (Enterprise Image Search - Flutter & ASP.NET 8)
+               ============================================================== -->
+          <article class="artefact-boarding-pass">
+            <div class="pass-main-stub">
+              <div class="pass-header">
+                <div class="pass-airline">
+                  <span>ENTERPRISE ARCHITECTURE</span>
+                  <span class="sticker-badge primary" style="font-size: 0.72rem;">PRODUCTION</span>
+                </div>
+                <div class="pass-flight-no">APP NO. EIS-880</div>
+              </div>
+
+              <div class="pass-flight-info-grid">
+                <div class="pass-info-cell">
+                  <div class="label">PLATFORM</div>
+                  <div class="val">Flutter Android</div>
+                </div>
+                <div class="pass-info-cell">
+                  <div class="label">BACKEND</div>
+                  <div class="val">ASP.NET Core 8</div>
+                </div>
+                <div class="pass-info-cell">
+                  <div class="label">INDEX CAPACITY</div>
+                  <div class="val">600K+ Files / 50K SKU</div>
+                </div>
+                <div class="pass-info-cell">
+                  <div class="label">DATABASE</div>
+                  <div class="val">SQLite + Dapper</div>
+                </div>
+              </div>
+
+              <h3 class="pass-title">Enterprise Image Search — Android App & REST API</h3>
+
+              <ul class="pass-bullets">
+                <li>
+                  <strong>Full-Stack Architecture:</strong> Engineered a mobile app enabling warehouse and merchandising teams to search a self-hosted 600K+ file NAS image library with instant thumbnail previews, batch export (ZIP + Excel), and directory browsing.
+                </li>
+                <li>
+                  <strong>High-Speed Indexing Pipeline:</strong> Supported batch lookups of up to <strong>50,000 SKU codes</strong> and instant search of 100 codes using a SQLite-backed indexing pipeline (Dapper) with background crawlers, incremental sync, and zone filtering.
+                </li>
+                <li>
+                  <strong>Enterprise Security:</strong> Implemented JWT auth with a device-approval workflow, refresh-token rotation, BCrypt password hashing, audit logging, and Role-Based Access Control (Admin/User).
+                </li>
+                <li>
+                  <strong>Async Job Queues & Offline Caching:</strong> Built Channel-based async workers for ZIP/Excel generation, multi-tier thumbnail cache (memory + disk), biometric/PIN lock, and offline persistence via local Isar database.
+                </li>
+              </ul>
+
+              <div class="tag-tech-row">
+                <span class="tag-tech-badge">Flutter</span>
+                <span class="tag-tech-badge">Dart</span>
+                <span class="tag-tech-badge">ASP.NET Core 8</span>
+                <span class="tag-tech-badge">C#</span>
+                <span class="tag-tech-badge">Dapper</span>
+                <span class="tag-tech-badge">JWT Auth</span>
+                <span class="tag-tech-badge">Channel Workers</span>
+                <span class="tag-tech-badge">Isar DB</span>
+              </div>
+            </div>
+
+            <!-- Tear-off Boarding Pass Stub -->
+            <div class="pass-tear-stub">
+              <div>
+                <div class="stub-qr-box">
+                  <img src="assets/images/enterprise_search.jpg" alt="Enterprise Search App Mockup">
+                  <div class="stub-caption">Flutter + ASP.NET Core 8</div>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.75rem; text-align: center; color: #475569;">
+                  <strong>BATCH LOOKUPS</strong><br>
+                  Up to 50,000 SKUs<br>
+                  Sub-15ms Latency
+                </div>
+              </div>
+
+              <div style="text-align: center; border-top: 1px dashed #cbd5e1; padding-top: 12px; margin-top: 12px;">
+                <div style="font-family: var(--font-mono); font-size: 0.7rem; color: #64748b;">BOARDING GATE</div>
+                <div style="font-family: var(--font-mono); font-size: 1.2rem; font-weight: 800; color: #0f172a;">AI-01</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- ==============================================================
+               ARTEFACT 3: VIP FESTIVAL WRISTBAND (SmartPark AI - Autonomous RL)
+               ============================================================== -->
+          <article class="artefact-wristband">
+            <div class="wristband-clip">VIP PASS • RL-2025</div>
+
+            <div>
+              <div class="wristband-tag">Reinforcement Learning & Simulation</div>
+              <h3 class="wristband-title">SmartPark AI — Autonomous Parking Agent</h3>
+
+              <ul class="wristband-bullets">
+                <li>
+                  <strong>40% Faster Exploration:</strong> Reduced early-phase exploration time by 40% versus a reward-only PPO baseline by training a <strong>PPO + GAIL</strong> agent across 4 complex parking configurations in a Unity 3D simulation using GAIL warm-start from expert demonstrations.
+                </li>
+                <li>
+                  <strong>Perception & Reward Engineering:</strong> Designed a finely-tuned shaped reward function and a camera-based raycast perception module emulating real-world sensor input.
+                </li>
+                <li>
+                  <strong>Forward-Compatible CAN Bus:</strong> Architected a CAN bus integration layer designed for forward-compatible physical vehicle deployment.
+                </li>
+              </ul>
+
+              <div class="tag-tech-row" style="margin-top: 16px;">
+                <span class="tag-tech-badge" style="background: #334155; color: #38bdf8;">Python</span>
+                <span class="tag-tech-badge" style="background: #334155; color: #38bdf8;">Unity ML-Agents</span>
+                <span class="tag-tech-badge" style="background: #334155; color: #38bdf8;">PPO + GAIL</span>
+                <span class="tag-tech-badge" style="background: #334155; color: #38bdf8;">TensorFlow</span>
+                <span class="tag-tech-badge" style="background: #334155; color: #38bdf8;">Optuna</span>
+                <span class="tag-tech-badge" style="background: #334155; color: #38bdf8;">CAN Bus</span>
+              </div>
+            </div>
+
+            <!-- Right Simulation Preview -->
+            <div class="wristband-preview">
+              <img src="assets/images/smartpark_rl.jpg" alt="Autonomous Parking Simulation">
+            </div>
+          </article>
+
+          <!-- ==============================================================
+               ARTEFACT 4: POSTCARDS (Ozibook & Education)
+               ============================================================== -->
+          <div class="artefact-postcard-grid">
+            <!-- Postcard 1: Ozibook -->
+            <div class="postcard-card">
+              <div class="postage-stamp">
+                <span>POSTAGE</span>
+                <strong>ROI +8%</strong>
+                <span>INDIA</span>
+              </div>
+              <div class="postmark-circle">BENGALURU</div>
+
+              <h4 class="postcard-title">Ozibook Tech Solution</h4>
+              <div class="postcard-subtitle">Lead Business Analyst Intern • Jan–Mar 2024</div>
+              <p class="postcard-body">
+                • Drove a <strong>15% improvement in customer conversion rate</strong> by engineering Tableau funnel analytics dashboards for 3 product lines that pinpointed key user drop-off points.<br>
+                • Contributed to an <strong>8% uplift in campaign ROI</strong> by conducting statistical audience segmentation across 5+ marketing campaigns using Python (Pandas, NumPy).
+              </p>
+              <div class="tag-tech-row">
+                <span class="tag-tech-badge">Tableau</span>
+                <span class="tag-tech-badge">Pandas</span>
+                <span class="tag-tech-badge">NumPy</span>
+                <span class="tag-tech-badge">Funnel Analytics</span>
+              </div>
+            </div>
+
+            <!-- Postcard 2: Education -->
+            <div class="postcard-card">
+              <div class="postage-stamp" style="border-color: #2563eb; color: #2563eb; background: #eff6ff;">
+                <span>ACADEMIC</span>
+                <strong>B.TECH</strong>
+                <span>AI & DS</span>
+              </div>
+              <div class="postmark-circle" style="border-color: rgba(37,99,235,0.4); color: rgba(37,99,235,0.7);">MUMBAI</div>
+
+              <h4 class="postcard-title">Academic Foundations</h4>
+              <div class="postcard-subtitle">Degrees & Engineering Honors</div>
+
+              <div class="education-pill-stack">
+                <div class="edu-item">
+                  <div class="edu-deg">B.Tech. in Artificial Intelligence & Data Science</div>
+                  <div class="edu-school">Shah and Anchor Kutchhi Engineering College</div>
+                  <div class="edu-date">October 2022 – May 2025</div>
+                </div>
+                <div class="edu-item">
+                  <div class="edu-deg">Diploma in Computer Engineering</div>
+                  <div class="edu-school">K.J. Somaiya Polytechnic</div>
+                  <div class="edu-date">October 2019 – August 2022</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         CUTTING BOARD PLAYGROUND SECTION (Draggable Workbench Mat)
+         ==================================================================== -->
+    <section id="cutting-board" class="cutting-board-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Interactive Canvas</div>
+          <h2 class="section-title">The Draggable Cutting Board</h2>
+          <p class="section-subtitle">
+            Grab, toss, and arrange project polaroids, architecture notes, and washi tape snippets freely across the workshop mat.
+          </p>
+        </div>
+
+        <div class="cutting-board-wrapper">
+          <!-- Green Mat -->
+          <div class="cutting-mat">
+            <div class="mat-ruler-top">
+              <span>0 cm</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>60</span><span>70</span><span>80</span><span>90 cm</span>
+            </div>
+            <div class="mat-ruler-left">
+              <span>0</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50 cm</span>
+            </div>
+            <div class="mat-brand-stamp">SHLOK CRAFT MAT // A1 PRECISION</div>
+
+            <div class="coffee-stain"></div>
+
+            <!-- Draggable Item 1: Visual Search Polaroid -->
+            <div class="draggable-item drag-item-faiss">
+              <div class="washi-tape tape-top-center"></div>
+              <img src="assets/images/visual_search.jpg" alt="Visual Search FAISS">
+              <div class="caption">CLIP ViT-B/32 • 600K Vector Index</div>
+            </div>
+
+            <!-- Draggable Item 2: SmartPark RL Polaroid -->
+            <div class="draggable-item drag-item-rl">
+              <div class="washi-tape tape-top-center tape-pattern-grid"></div>
+              <img src="assets/images/smartpark_rl.jpg" alt="SmartPark RL Agent">
+              <div class="caption">PPO + GAIL Parking Simulation</div>
+            </div>
+
+            <!-- Draggable Item 3: Post-it Note Yellow -->
+            <div class="draggable-item drag-item-postit-1">
+              <div class="text">
+                <strong>Latency Win:</strong><br>
+                Reduced search retrieval latency by <strong>65%</strong> with ANN clustering!
+              </div>
+            </div>
+
+            <!-- Draggable Item 4: Post-it Note Pink -->
+            <div class="draggable-item drag-item-postit-2">
+              <div class="text">
+                <strong>RL Exploration:</strong><br>
+                40% faster convergence with GAIL expert demonstration warm-starts.
+              </div>
+            </div>
+
+            <!-- Draggable Item 5: Center Diagram Note -->
+            <div class="draggable-item drag-item-diagram">
+              <div class="title">Enterprise Stack</div>
+              <ul>
+                <li>Flutter (MVVM + Provider + Isar)</li>
+                <li>ASP.NET Core 8 REST API (C#)</li>
+                <li>SQLite + Dapper Incremental Sync</li>
+                <li>JWT Auth with Device Approval</li>
+                <li>Channel-Based Async Job Queue</li>
+              </ul>
+            </div>
+
+            <!-- Draggable Item 6: Stickers -->
+            <div class="draggable-item drag-item-sticker-1">
+              <span class="sticker-badge primary">FAISS IVF</span>
+            </div>
+            <div class="draggable-item drag-item-sticker-2">
+              <span class="sticker-badge">Flutter & C#</span>
+            </div>
+          </div>
+
+          <!-- Board Controls -->
+          <div class="cutting-board-controls">
+            <button id="scatterBoardBtn" class="board-btn">
+              <span>Scatter items</span>
+            </button>
+            <button id="resetBoardBtn" class="board-btn">
+              <span>Organize Workbench</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         BIO PEEK-OUT CARD SECTION ("What's his deal?" & Peelable Mask)
+         ==================================================================== -->
+    <section id="bioPeek" class="bio-peek-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">The Story</div>
+          <h2 class="section-title">What's His Deal?</h2>
+          <p class="section-subtitle">
+            Pull out the folder and drag the peelable mask to reveal Shlok.
+          </p>
+        </div>
+
+        <div class="bio-card-wrapper" id="about">
+          <div class="bio-folder-card">
+            <div class="folder-tab">CONFIDENTIAL DOSSIER // SHLOK PANCHAL</div>
+
+            <!-- Left: Portrait with Draggable Mask -->
+            <div class="bio-portrait-container" id="bioPortraitContainer">
+              <img src="assets/images/shlok.png" alt="Shlok Panchal" class="bio-real-photo">
+              
+              <!-- Peelable Mask -->
+              <div class="bio-scratch-mask" id="bioScratchMask">
+                <div class="mask-hint-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v3"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v6"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>
+                </div>
+                <div class="mask-hint-text">Drag mask to reveal photo</div>
+                <div class="mask-hint-sub">(Click & drag aside)</div>
+              </div>
+
+              <div class="bio-revealed-badge">Shlok Panchal</div>
+            </div>
+
+            <!-- Right: Story & Details -->
+            <div class="bio-content-side">
+              <div class="bio-name-row">
+                <h3 class="bio-heading">Shlok Panchal</h3>
+                <span class="bio-location-chip">Mumbai, India</span>
+              </div>
+
+              <p class="bio-quote">
+                "Everything you do, do it with care."
+              </p>
+
+              <p style="font-size: 1rem; color: var(--color-ink-light); line-height: 1.6;">
+                I'm a Data Scientist and Full-Stack AI Engineer who loves bridging cutting-edge machine learning research with rock-solid, production-ready software. Whether it's training reinforcement learning agents, tuning FAISS vector quantization for 600K+ product embeddings, or crafting buttery-smooth mobile UIs with Flutter, I obsess over performance, clarity, and developer craft.
+              </p>
+
+              <div class="bio-grid-columns">
+                <div class="bio-pillar-box">
+                  <div class="bio-pillar-title">What fuels my soul</div>
+                  <ul>
+                    <li>Optimizing vector search algorithms</li>
+                    <li>Training PPO & GAIL RL agents</li>
+                    <li>Building responsive Flutter apps</li>
+                    <li>Late night coding with hot masala chai</li>
+                  </ul>
+                </div>
+
+                <div class="bio-pillar-box">
+                  <div class="bio-pillar-title">Stuff I nerd out on</div>
+                  <ul>
+                    <li>CLIP ViT-B/32 multimodal spaces</li>
+                    <li>FAISS IVF index clustering & Voronoi cells</li>
+                    <li>High-throughput Channel workers in C#</li>
+                    <li>Autonomous vehicle simulation & CAN bus</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         INTERACTIVE "WHAT I LOOK FOR" CHECKLIST
+         ==================================================================== -->
+    <section id="checklist" class="checklist-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Alignment</div>
+          <h2 class="section-title">What I Look For</h2>
+          <p class="section-subtitle">
+            Check each criteria to see our compatibility score and ink in the celebratory illustration.
+          </p>
+        </div>
+
+        <div class="checklist-card-box">
+          <!-- Left: Checkboxes -->
+          <div>
+            <h3 class="checklist-title">Let's find our synergy</h3>
+            <p class="checklist-desc">Select the criteria that matter to your team:</p>
+
+            <div class="checklist-items-stack">
+              <div class="check-item checked">
+                <div class="custom-checkbox">
+                  <svg class="checkmark-svg" viewBox="0 0 24 24"><path d="M 4 12 L 9 17 L 20 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div>
+                  <div class="check-item-text">High-Impact AI/ML & Data Engineering</div>
+                  <div class="check-item-sub">Vector search, computer vision, RL, and production systems.</div>
+                </div>
+              </div>
+
+              <div class="check-item checked">
+                <div class="custom-checkbox">
+                  <svg class="checkmark-svg" viewBox="0 0 24 24"><path d="M 4 12 L 9 17 L 20 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div>
+                  <div class="check-item-text">End-to-End Product Craft & Ownership</div>
+                  <div class="check-item-sub">Taking features from concept to production-grade architecture.</div>
+                </div>
+              </div>
+
+              <div class="check-item">
+                <div class="custom-checkbox">
+                  <svg class="checkmark-svg" viewBox="0 0 24 24"><path d="M 4 12 L 9 17 L 20 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div>
+                  <div class="check-item-text">Ambitious, Fast-Paced Team</div>
+                  <div class="check-item-sub">Collaborating closely with talented builders who love what they do.</div>
+                </div>
+              </div>
+
+              <div class="check-item">
+                <div class="custom-checkbox">
+                  <svg class="checkmark-svg" viewBox="0 0 24 24"><path d="M 4 12 L 9 17 L 20 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div>
+                  <div class="check-item-text">Meaningful, Real-World Software</div>
+                  <div class="check-item-sub">Empowering users with tools that feel natural and intuitive.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Dynamic SVG Sketch Color-Fill -->
+          <div class="sketch-reveal-box">
+            <div class="sketch-progress-pill" id="checklistProgress">50% Match</div>
+
+            <div class="sketch-canvas-wrap">
+              <svg viewBox="0 0 200 200">
+                <!-- Base Sketch Lines (Always visible) -->
+                <circle cx="100" cy="100" r="85" fill="none" stroke="#d5c8b5" stroke-width="2" stroke-dasharray="4 4"/>
+                <path d="M 60 140 Q 100 170 140 140" fill="none" stroke="#231f20" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="75" cy="85" r="7" fill="#231f20"/>
+                <circle cx="125" cy="85" r="7" fill="#231f20"/>
+                <path d="M 65 70 Q 75 62 85 70" fill="none" stroke="#231f20" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M 115 70 Q 125 62 135 70" fill="none" stroke="#231f20" stroke-width="2.5" stroke-linecap="round"/>
+
+                <!-- Layer 1 Color (Sunburst Yellow) -->
+                <g class="sketch-layer" style="transition: all 0.4s ease;">
+                  <circle cx="100" cy="100" r="75" fill="#fef08a" opacity="0.6"/>
+                </g>
+
+                <!-- Layer 2 Color (Terracotta Cheeks) -->
+                <g class="sketch-layer" style="transition: all 0.4s ease;">
+                  <circle cx="65" cy="105" r="14" fill="#fca5a5" opacity="0.7"/>
+                  <circle cx="135" cy="105" r="14" fill="#fca5a5" opacity="0.7"/>
+                </g>
+
+                <!-- Layer 3 Color (Sparkle Stars) -->
+                <g class="sketch-layer" style="transition: all 0.4s ease;">
+                  <polygon points="100,20 104,35 120,35 107,45 112,60 100,50 88,60 93,45 80,35 96,35" fill="#f59e0b"/>
+                  <polygon points="35,50 38,60 48,60 40,66 43,76 35,70 27,76 30,66 22,60 32,60" fill="#10b981"/>
+                  <polygon points="165,50 168,60 178,60 170,66 173,76 165,70 157,76 160,66 152,60 162,60" fill="#3b82f6"/>
+                </g>
+
+                <!-- Layer 4 Color (Party Crown / Confetti Burst) -->
+                <g class="sketch-layer" style="transition: all 0.4s ease;">
+                  <path d="M 70 50 L 85 25 L 100 45 L 115 25 L 130 50 Z" fill="#e35342"/>
+                  <circle cx="85" cy="22" r="4" fill="#ffd700"/>
+                  <circle cx="100" cy="42" r="4" fill="#ffd700"/>
+                  <circle cx="115" cy="22" r="4" fill="#ffd700"/>
+                </g>
+              </svg>
+            </div>
+
+            <div class="sketch-match-msg" id="checklistMatchMsg">
+              Getting closer: 50% match
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         CONNECT & FOOTER SECTION
+         ==================================================================== -->
+    <section id="connect" class="footer-connect-section">
+      <div class="container">
+        <!-- Main Connect Banner -->
+        <div class="connect-hero-banner">
+          <div class="washi-tape tape-top-center tape-pattern-grid"></div>
+
+          <h2 class="connect-heading">Let's build together</h2>
+          <p class="connect-lead">
+            Have an exciting AI/ML role, an engineering problem, or just want to chat about multimodal vector search and reinforcement learning? My inbox is always open.
+          </p>
+
+          <div class="connect-actions-row">
+            <button class="btn-copy-email" data-copy-email>
+              <span>Copy Email: shlokpanchal2@gmail.com</span>
+            </button>
+            <a href="mailto:shlokpanchal2@gmail.com" class="btn-scrapbook-secondary">
+              <span>Send Direct Email</span>
+            </a>
+          </div>
+
+          <div class="social-links-grid">
+            <a href="https://linkedin.com/in/shlokmpanchal" target="_blank" rel="noopener" class="social-btn">
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://github.com/ShlokPanchal-Hub" target="_blank" rel="noopener" class="social-btn">
+              <span>GitHub</span>
+            </a>
+            <a href="tel:+918928149299" class="social-btn">
+              <span>+91 8928149299</span>
+            </a>
+            <a href="Shlok_Panchal-1.pdf" target="_blank" class="social-btn">
+              <span>Resume PDF</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Footer Bottom Notes -->
+        <div class="footer-bottom-notes">
+          <p>
+            Thank you for visiting. Handcrafted thoughtfully with code, care, and passion by Shlok Panchal.
+          </p>
+          <div class="footer-human-declaration">
+            Built with HTML5 • CSS3 • JavaScript • GSAP ScrollTrigger • Draggable • Web Audio API
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast Notification Container -->
+  <div id="scrapbookToast" class="scrapbook-toast"></div>
+
+</body>
+</html>

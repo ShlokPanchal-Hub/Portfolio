@@ -1,0 +1,420 @@
+/* ==========================================================================
+   SCRAPBOOK & HERO CRAFT STYLING
+   ========================================================================== */
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  padding: 130px 0 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+}
+
+.hero-main-stack {
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.hero-supertitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-paper);
+  border: 1px solid rgba(210, 198, 172, 0.8);
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--color-ink-muted);
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-paper-sm);
+  transform: rotate(-1.5deg);
+  transition: transform 0.3s var(--ease-elastic);
+}
+
+.hero-supertitle:hover {
+  transform: rotate(0deg) scale(1.04);
+}
+
+.hero-title {
+  font-size: clamp(2.6rem, 5.8vw, 4.8rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.06;
+  color: var(--color-ink);
+  margin-bottom: 20px;
+}
+
+.hero-title .serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-primary);
+  position: relative;
+  display: inline-block;
+}
+
+.hero-title .serif-italic::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 12' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,8 Q25,2 50,7 T100,6' fill='none' stroke='%23e35342' stroke-width='4' stroke-linecap='round' opacity='0.75'/%3E%3C/svg%3E") no-repeat center;
+  background-size: 100% 100%;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  color: var(--color-ink-light);
+  max-width: 560px;
+  margin: 0 auto 32px;
+  line-height: 1.55;
+}
+
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-scrapbook-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-primary);
+  color: white;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 10px 20px -5px rgba(227, 83, 66, 0.4), 0 4px 6px -2px rgba(227, 83, 66, 0.2);
+  transition: all 0.25s var(--ease-smooth);
+  position: relative;
+}
+
+.btn-scrapbook-primary:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 14px 26px -4px rgba(227, 83, 66, 0.45);
+}
+
+.btn-scrapbook-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-paper);
+  color: var(--color-ink);
+  padding: 14px 26px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: 1px solid rgba(210, 198, 172, 0.9);
+  box-shadow: var(--shadow-paper-sm);
+  transition: all 0.25s ease;
+}
+
+.btn-scrapbook-secondary:hover {
+  background: #ffedd5;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+/* Scrapbook Floating Cards in Hero - Framed in centered container */
+.hero-floating-elements {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1280px;
+  padding: 0 20px;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.float-card {
+  position: absolute;
+  pointer-events: auto;
+  transition: transform 0.25s var(--ease-smooth), box-shadow 0.25s ease;
+  cursor: grab;
+  user-select: none;
+}
+
+.float-card:active {
+  cursor: grabbing;
+}
+
+.float-card:hover {
+  z-index: 30 !important;
+  transform: scale(1.05) rotate(0deg) !important;
+  box-shadow: var(--shadow-lift) !important;
+}
+
+/* Specific Card Layouts in Hero - Contained safely within container */
+.card-polaroid-faiss {
+  top: 14%;
+  left: 20px;
+  width: clamp(160px, 16vw, 210px);
+  background: white;
+  padding: 10px 10px 14px;
+  border-radius: 4px;
+  box-shadow: var(--shadow-polaroid);
+  transform: rotate(-6deg);
+}
+
+.card-polaroid-faiss img {
+  width: 100%;
+  height: clamp(110px, 12vw, 135px);
+  object-fit: cover;
+  border-radius: 2px;
+  margin-bottom: 8px;
+  border: 1px solid #ede8de;
+}
+
+.card-polaroid-faiss .caption {
+  font-family: var(--font-hand);
+  font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+  color: var(--color-ink);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.card-polaroid-rl {
+  top: 16%;
+  right: 20px;
+  width: clamp(160px, 16vw, 215px);
+  background: white;
+  padding: 10px 10px 14px;
+  border-radius: 4px;
+  box-shadow: var(--shadow-polaroid);
+  transform: rotate(5deg);
+}
+
+.card-polaroid-rl img {
+  width: 100%;
+  height: clamp(110px, 12vw, 140px);
+  object-fit: cover;
+  border-radius: 2px;
+  margin-bottom: 8px;
+  border: 1px solid #ede8de;
+}
+
+.card-polaroid-rl .caption {
+  font-family: var(--font-hand);
+  font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+  color: var(--color-ink);
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* Post-it Notes */
+.card-postit-beliefs {
+  bottom: 5%;
+  left: 24px;
+  width: clamp(170px, 17vw, 225px);
+  background: var(--bg-postit-yellow);
+  padding: 14px 12px 16px;
+  border-radius: 2px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+  transform: rotate(3deg);
+  border-top: 1px solid rgba(255,255,255,0.4);
+}
+
+.card-postit-beliefs .postit-title {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  color: var(--color-ink);
+  margin-bottom: 6px;
+  border-bottom: 1.5px dashed rgba(0,0,0,0.15);
+  padding-bottom: 4px;
+}
+
+.card-postit-beliefs ul {
+  list-style: none;
+  font-family: var(--font-hand);
+  font-size: clamp(0.85rem, 1vw, 0.96rem);
+  color: var(--color-ink-light);
+  line-height: 1.35;
+}
+
+.card-postit-beliefs li {
+  margin-bottom: 5px;
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.card-postit-beliefs li::before {
+  content: '✓';
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+.card-stamp-tech {
+  bottom: 6%;
+  right: 24px;
+  width: clamp(165px, 16vw, 215px);
+  background: #fdfaf4;
+  padding: 12px;
+  border-radius: 6px;
+  box-shadow: var(--shadow-paper);
+  transform: rotate(-3.5deg);
+  border: 2px dashed #d5c8b5;
+}
+
+.card-stamp-tech .badge-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.card-stamp-tech .tech-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-ink-muted);
+}
+
+.tech-tags-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.tech-tag-chip {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  background: #ece3d3;
+  color: var(--color-ink);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* Washi Tape Snippets */
+.washi-tape {
+  position: absolute;
+  z-index: 10;
+  height: 22px;
+  background: var(--color-tape);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  opacity: 0.85;
+  border-left: 2px dashed rgba(255,255,255,0.6);
+  border-right: 2px dashed rgba(255,255,255,0.6);
+  pointer-events: none;
+}
+
+.tape-top-center {
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+  width: 70px;
+}
+
+.tape-top-left {
+  top: -8px;
+  left: 10px;
+  transform: rotate(-25deg);
+  width: 55px;
+}
+
+.tape-top-right {
+  top: -8px;
+  right: 10px;
+  transform: rotate(25deg);
+  width: 55px;
+}
+
+.tape-pattern-grid {
+  background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.03) 0, rgba(0,0,0,0.03) 2px, transparent 0, transparent 4px);
+}
+
+/* Paper Clip Graphic */
+.paper-clip-svg {
+  position: absolute;
+  top: -14px;
+  right: 20px;
+  width: 22px;
+  height: 40px;
+  z-index: 12;
+  pointer-events: none;
+  filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.15));
+}
+
+/* Sticker Elements */
+.sticker-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  border: 2px solid var(--color-ink);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 2px 3px 0 var(--color-ink);
+  transition: transform 0.2s var(--ease-elastic);
+}
+
+.sticker-badge:hover {
+  transform: scale(1.08) rotate(-3deg);
+}
+
+.sticker-badge.primary {
+  background: #fee2e2;
+  border-color: var(--color-primary);
+  color: var(--color-primary-dark);
+  box-shadow: 2px 3px 0 var(--color-primary);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .card-polaroid-faiss {
+    left: 8px;
+    top: 10%;
+  }
+  .card-polaroid-rl {
+    right: 8px;
+    top: 12%;
+  }
+  .card-postit-beliefs {
+    left: 8px;
+    bottom: 3%;
+  }
+  .card-stamp-tech {
+    right: 8px;
+    bottom: 3%;
+  }
+}
+
+@media (max-width: 860px) {
+  .hero-floating-elements {
+    display: none;
+  }
+  .hero-section {
+    padding: 100px 0 50px;
+    min-height: auto;
+  }
+  .hero-main-stack {
+    max-width: 100%;
+    padding: 0 16px;
+  }
+}
