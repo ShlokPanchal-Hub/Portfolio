@@ -43,7 +43,7 @@ export function initBioScene() {
       rotation: -3,
       autoAlpha: 0,
       duration: 0.7,
-      ease: 'back.out(1.3)'
+      ease: 'expo.out'
     }, '-=0.5')
     .from('.bio-pillar-box', {
       y: 24,

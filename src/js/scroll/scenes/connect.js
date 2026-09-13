@@ -28,7 +28,7 @@ export function initChecklistScene() {
     rotation: 3,
     autoAlpha: 0,
     duration: 0.8,
-    ease: 'back.out(1.3)',
+    ease: 'power3.out',
     scrollTrigger: { trigger: box, start: 'top 78%' }
   });
 }

@@ -5,6 +5,10 @@
    with a pointer, click it, or press Enter/Space. Previously it was a div
    that only responded to dragging, which made the interaction a dead end for
    anyone on a keyboard.
+
+   No confetti here. Firing the page's biggest reward gesture for a passive
+   photo reveal spends it before the checklist's full-match moment, which is
+   the one the reader actually worked for.
    ========================================================================== */
 
 import { gsap, Draggable, prefersReducedMotion } from '../motion.js';
@@ -36,7 +40,6 @@ export function initBioMask() {
       });
     }
 
-    celebrate();
     showToast('Shlok revealed — "Everything you do, do it with care."');
   };
 
@@ -54,6 +57,10 @@ export function initBioMask() {
 
   Draggable.create(mask, {
     type: 'x,y',
+    // Without bounds the cover can be dragged arbitrarily far across the page
+    // before it resolves. One card's width of travel in each direction is far
+    // more than the 70px peel threshold needs.
+    bounds: { minX: -260, maxX: 260, minY: -220, maxY: 220 },
     edgeResistance: 0.2,
     onDragStart() {
       mask.dataset.dragging = 'true';
@@ -88,11 +95,4 @@ export function initBioMask() {
       requestAnimationFrame(() => { mask.dataset.dragging = 'false'; });
     }
   });
-}
-
-async function celebrate() {
-  if (prefersReducedMotion) return;
-
-  const { default: confetti } = await import('canvas-confetti');
-  confetti({ particleCount: 60, spread: 70, origin: { y: 0.65 }, disableForReducedMotion: true });
 }

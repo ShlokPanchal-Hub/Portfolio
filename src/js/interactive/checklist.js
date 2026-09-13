@@ -76,8 +76,9 @@ export function initChecklist() {
       gsap.to(layer, {
         opacity: isOn ? 1 : 0.08,
         scale: isOn ? 1 : 0.96,
+        // Ink spreading into the drawing, not a bouncing object.
         duration: prefersReducedMotion ? 0 : 0.45,
-        ease: 'back.out(1.6)',
+        ease: 'power2.out',
         overwrite: true
       });
     });

@@ -44,7 +44,7 @@ function buildEntrance(title) {
       autoAlpha: 0,
       rotation: -10,
       duration: 0.6,
-      ease: 'back.out(1.7)'
+      ease: 'expo.out'
     }, '-=0.4')
     .from(lines, {
       yPercent: 115,
@@ -59,7 +59,7 @@ function buildEntrance(title) {
       autoAlpha: 0,
       duration: 0.8,
       stagger: { each: 0.1, from: 'random' },
-      ease: 'back.out(1.5)'
+      ease: 'power4.out'
     }, '-=0.65')
     .from('.scroll-cue', { autoAlpha: 0, y: -10, duration: 0.6 }, '-=0.2');
 

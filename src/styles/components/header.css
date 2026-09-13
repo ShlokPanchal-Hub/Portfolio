@@ -236,6 +236,16 @@
   .music-toggle-btn { width: 32px; height: 32px; }
 }
 
+/* Below this width the nav scrolls. A soft fade on the trailing edge is the
+   only cue that there is more to reach — without it "Connect", the link that
+   matters most on a portfolio, looks like it simply is not there. */
+@media (max-width: 768px) {
+  .header-nav {
+    -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 22px), transparent 100%);
+    mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 22px), transparent 100%);
+  }
+}
+
 @media (max-width: 560px) {
   .site-header { padding: var(--space-2); }
   .site-brand { padding: var(--space-1) var(--space-2); }

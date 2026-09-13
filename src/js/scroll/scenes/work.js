@@ -246,7 +246,7 @@ function postcards() {
       scale: 0.4,
       autoAlpha: 0,
       duration: 0.4,
-      ease: 'back.out(2)',
+      ease: 'power3.out',
       scrollTrigger: {
         trigger: stamp.closest('.postcard-card'),
         start: 'top 74%'
