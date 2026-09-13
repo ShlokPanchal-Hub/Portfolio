@@ -9,9 +9,6 @@ import { gsap, prefersReducedMotion, BREAKPOINTS } from '../../motion.js';
 
 export function initBoardScene() {
   if (prefersReducedMotion) return;
-  // Hidden below 861px (board.css) — ScrollTriggers on a display:none section
-  // measure as zero and only pollute the refresh pass.
-  if (!window.matchMedia(BREAKPOINTS.isDesktop).matches) return;
 
   const mat = document.querySelector('.cutting-mat');
   if (!mat) return;

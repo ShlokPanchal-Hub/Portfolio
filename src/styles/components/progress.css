@@ -1,9 +1,6 @@
 /* ==========================================================================
-   READING PROGRESS RAIL
-   A hand-drawn ink line down the left edge that fills as the page advances.
-   Continuous progress feedback is the strongest single signal that there is
-   more worth scrolling to — this one is drawn, not a flat browser bar.
-
+   READING PROGRESS RAIL & MOBILE INDICATOR
+   Continuous progress feedback across both desktop and mobile viewports.
    Lives OUTSIDE #smooth-wrapper (fixed positioning).
    ========================================================================== */
 
@@ -84,7 +81,32 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* The rail costs horizontal room the small layouts do not have. */
+/* --------------------------------------------------------------------------
+   MOBILE INK READING PROGRESS BAR
+   -------------------------------------------------------------------------- */
+.mobile-reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  z-index: calc(var(--z-header) + 10);
+  pointer-events: none;
+  background: transparent;
+  display: none;
+}
+
+.mobile-reading-progress-bar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  transform-origin: left center;
+  transform: scaleX(0);
+  will-change: transform;
+}
+
+/* Responsive handoff: vertical rail on large screens, sleek top bar on mobile/tablets */
 @media (max-width: 1180px) {
   .reading-progress { display: none; }
+  .mobile-reading-progress { display: block; }
 }

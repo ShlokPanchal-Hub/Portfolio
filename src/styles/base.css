@@ -25,8 +25,8 @@ html {
 body {
   background-color: var(--paper-canvas);
   background-image:
-    radial-gradient(#d6cebe 0.75px, transparent 0.75px),
-    radial-gradient(#e0d7c7 0.75px, var(--paper-canvas) 0.75px);
+    radial-gradient(var(--paper-dot-1) 0.75px, transparent 0.75px),
+    radial-gradient(var(--paper-dot-2) 0.75px, var(--paper-canvas) 0.75px);
   background-size: 30px 30px;
   background-position: 0 0, 15px 15px;
   background-attachment: fixed;
@@ -96,12 +96,19 @@ main {
   width: 100%;
   max-width: var(--container-max);
   margin: 0 auto;
-  padding-inline: var(--container-pad);
+  padding-left: max(var(--container-pad), var(--sal));
+  padding-right: max(var(--container-pad), var(--sar));
 }
 
 @media (max-width: 768px) {
   .container {
     --container-pad: var(--space-4);
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    --container-pad: var(--space-3);
   }
 }
 
@@ -150,7 +157,7 @@ ul {
 }
 
 ::selection {
-  background-color: #ffd6cb;
+  background-color: var(--color-selection-bg);
   color: var(--color-primary-dark);
 }
 

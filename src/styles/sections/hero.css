@@ -27,7 +27,7 @@
   align-items: center;
   gap: var(--space-2);
   background: var(--paper);
-  border: 1px solid rgba(210, 198, 172, 0.8);
+  border: 1px solid var(--border-btn);
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-pill);
   font-family: var(--font-mono);
@@ -197,7 +197,7 @@
   padding: var(--space-3);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-paper);
-  border: 2px dashed #d5c8b5;
+  border: 2px dashed var(--sketch-dash);
   rotate: -3.5deg;
 }
 
@@ -219,19 +219,48 @@
 /* --------------------------------------------------------------------------
    RESPONSIVE
    -------------------------------------------------------------------------- */
-/* Card width is clamp(160px, 16vw, 210px), so below ~1000px every card is
-   pinned at its 160px floor while the viewport keeps shrinking around the
-   720px hero stack — they end up sitting on top of the headline and the CTAs.
-   They are decoration; below this width they simply go. */
-@media (max-width: 1100px) {
-  .hero-floating-elements { display: none; }
+/* Tablet & mid-screen adaptation: scale cards down so they frame the hero stack */
+@media (max-width: 1100px) and (min-width: 769px) {
+  .hero-floating-elements {
+    padding-inline: var(--space-2);
+  }
+
+  .card-polaroid-faiss {
+    top: 10%;
+    left: var(--space-2);
+    width: clamp(120px, 13vw, 150px);
+    opacity: 0.85;
+  }
+
+  .card-polaroid-rl {
+    top: 12%;
+    right: var(--space-2);
+    width: clamp(120px, 13vw, 150px);
+    opacity: 0.85;
+  }
+
+  .card-postit-beliefs {
+    bottom: 3%;
+    left: var(--space-2);
+    width: clamp(130px, 14vw, 165px);
+    opacity: 0.85;
+  }
+
+  .card-stamp-tech {
+    bottom: 4%;
+    right: var(--space-2);
+    width: clamp(125px, 13vw, 160px);
+    opacity: 0.85;
+  }
 }
 
-@media (max-width: 860px) {
+/* Narrow mobile screens: hide absolute cards to prevent occlusion of title/CTAs */
+@media (max-width: 768px) {
+  .hero-floating-elements { display: none; }
   .scroll-cue { display: none; }
 
   .hero-section {
-    padding: var(--space-12) 0 var(--space-9);
+    padding: calc(var(--space-12) + var(--sat)) 0 var(--space-9);
     min-height: auto;
   }
 
@@ -239,4 +268,42 @@
     max-width: 100%;
     padding-inline: var(--space-4);
   }
+}
+
+/* Ergonomic CTAs on narrow phones */
+@media (max-width: 480px) {
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    gap: var(--space-3);
+  }
+
+  .hero-cta-group .btn-scrapbook-primary,
+  .hero-cta-group .btn-scrapbook-secondary {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* Mobile landscape aspect-ratio adaptation */
+@media (max-height: 540px) {
+  .hero-section {
+    min-height: auto;
+    padding: calc(var(--space-10) + var(--sat)) 0 var(--space-6);
+  }
+
+  .hero-title {
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    margin-bottom: var(--space-3);
+  }
+
+  .hero-subtitle {
+    margin-bottom: var(--space-4);
+  }
+
+  .scroll-cue { display: none; }
+  .hero-floating-elements { display: none; }
 }

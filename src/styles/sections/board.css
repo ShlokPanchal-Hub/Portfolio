@@ -1,5 +1,6 @@
 /* ==========================================================================
    CUTTING BOARD — throwable workbench
+   Fully responsive across all aspect ratios: desktop, tablet, and mobile.
    ========================================================================== */
 
 .cutting-board-section {
@@ -17,7 +18,7 @@
 .cutting-mat {
   position: relative;
   width: 100%;
-  height: 640px;
+  min-height: clamp(390px, 52vw, 620px);
   background-color: var(--mat-surface);
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
@@ -27,7 +28,7 @@
   background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
   background-position: -1px -1px;
   border-radius: var(--radius-xl);
-  border: 12px solid var(--mat-edge);
+  border: clamp(6px, 1.2vw, 12px) solid var(--mat-edge);
   box-shadow:
     inset 0 0 40px rgba(0, 0, 0, 0.6),
     0 25px 50px -12px rgba(16, 13, 11, 0.35);
@@ -39,39 +40,39 @@
 .mat-ruler-top {
   position: absolute;
   top: var(--space-2);
-  left: var(--space-8);
-  right: var(--space-8);
+  left: clamp(var(--space-4), 3vw, var(--space-8));
+  right: clamp(var(--space-4), 3vw, var(--space-8));
   display: flex;
   justify-content: space-between;
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: rgba(255, 255, 255, 0.4);
+  font-size: var(--text-xs);
+  color: var(--mat-ruler);
   pointer-events: none;
   font-variant-numeric: tabular-nums;
 }
 
 .mat-ruler-left {
   position: absolute;
-  top: var(--space-8);
-  bottom: var(--space-8);
+  top: clamp(var(--space-4), 3vw, var(--space-8));
+  bottom: clamp(var(--space-4), 3vw, var(--space-8));
   left: var(--space-2);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: rgba(255, 255, 255, 0.4);
+  font-size: var(--text-xs);
+  color: var(--mat-ruler);
   pointer-events: none;
   font-variant-numeric: tabular-nums;
 }
 
 .mat-brand-stamp {
   position: absolute;
-  bottom: var(--space-5);
-  right: var(--space-6);
+  bottom: var(--space-4);
+  right: var(--space-5);
   font-family: var(--font-display);
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.35);
+  font-size: clamp(0.78rem, 1.4vw, 1.1rem);
+  color: var(--mat-brand);
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
   pointer-events: none;
@@ -79,32 +80,33 @@
 
 .coffee-stain {
   position: absolute;
-  top: 320px;
-  left: 310px;
-  width: 100px;
-  height: 100px;
+  top: 48%;
+  left: 45%;
+  width: clamp(64px, 12vw, 100px);
+  height: clamp(64px, 12vw, 100px);
   border-radius: 50%;
-  border: 4px solid rgba(80, 50, 20, 0.2);
+  border: 4px solid var(--coffee-stain-border);
   filter: blur(0.5px);
   pointer-events: none;
-  box-shadow: inset 0 0 8px rgba(80, 50, 20, 0.12);
+  box-shadow: inset 0 0 8px var(--coffee-stain-shadow);
+  transform: translate(-50%, -50%);
 }
 
 /* --------------------------------------------------------------------------
    DRAGGABLE ITEMS
-   No transition on transform — it would fight Draggable's per-frame writes.
-   `will-change` is applied on drag start and removed on release rather than
-   left on permanently; a always-on compositor hint on seven elements costs
-   memory for no benefit while the section is idle.
    -------------------------------------------------------------------------- */
 .draggable-item {
   position: absolute;
   cursor: grab;
-  touch-action: none;
   user-select: none;
   -webkit-user-select: none;
   z-index: var(--z-drag);
   transition: box-shadow var(--dur-fast) var(--ease-smooth);
+}
+
+.draggable-item:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
 }
 
 .draggable-item.is-dragging {
@@ -122,26 +124,47 @@
   box-shadow: 0 10px 20px rgba(16, 13, 11, 0.25);
 }
 
-/* Positions only — every visual property comes from .polaroid / .postit */
-.drag-item-faiss { top: 50px; left: 50px; width: 210px; }
-.drag-item-rl { top: 50px; right: 50px; width: 215px; }
+/* Fluid, aspect-ratio and viewport-adaptive placement */
+.drag-item-faiss {
+  top: 7%;
+  left: 5%;
+  width: clamp(140px, 20vw, 210px);
+}
+
+.drag-item-rl {
+  top: 7%;
+  right: 5%;
+  width: clamp(140px, 20vw, 215px);
+}
 
 .drag-item-faiss img,
-.drag-item-rl img { height: 132px; }
+.drag-item-rl img {
+  height: clamp(88px, 13vw, 132px);
+}
 
-.drag-item-postit-1 { bottom: 60px; left: 70px; width: 190px; }
-.drag-item-postit-2 { bottom: 60px; right: 70px; width: 200px; }
+.drag-item-postit-1 {
+  bottom: 8%;
+  left: 6%;
+  width: clamp(130px, 18vw, 190px);
+}
 
-.drag-item-postit-1 .text { color: #332d00; }
-.drag-item-postit-2 .text { color: #4a044e; }
+.drag-item-postit-2 {
+  bottom: 8%;
+  right: 6%;
+  width: clamp(130px, 18vw, 200px);
+}
+
+.drag-item-postit-1 .text { color: var(--postit-text-1); font-size: clamp(0.78rem, 1.2vw, 0.95rem); }
+.drag-item-postit-2 .text { color: var(--postit-text-2); font-size: clamp(0.78rem, 1.2vw, 0.95rem); }
 
 .drag-item-diagram {
-  top: 140px;
-  left: 360px;
-  width: 260px;
+  top: 22%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(170px, 25vw, 260px);
   background: var(--paper-warm);
-  border: 2px dashed #b8aa93;
-  padding: var(--space-4);
+  border: 2px dashed var(--tech-diagram-border);
+  padding: clamp(var(--space-2), 1.5vw, var(--space-4));
   border-radius: var(--radius-md);
   box-shadow: 0 12px 24px rgba(16, 13, 11, 0.3);
 }
@@ -149,15 +172,15 @@
 .drag-item-diagram .title {
   font-family: var(--font-mono);
   font-weight: 700;
-  font-size: 0.78rem;
+  font-size: clamp(0.68rem, 1vw, 0.78rem);
   text-transform: uppercase;
-  color: #8c7b64;
+  color: var(--tech-diagram-title);
   margin-bottom: var(--space-2);
 }
 
 .drag-item-diagram ul {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: clamp(0.65rem, 0.9vw, 0.75rem);
   color: var(--color-ink-light);
   line-height: var(--leading-normal);
 }
@@ -174,8 +197,17 @@
   color: var(--color-primary);
 }
 
-.drag-item-sticker-1 { bottom: 80px; left: 340px; }
-.drag-item-sticker-2 { top: 60px; left: 320px; }
+.drag-item-sticker-1 {
+  bottom: 12%;
+  left: 50%;
+  transform: translateX(-120%);
+}
+
+.drag-item-sticker-2 {
+  top: 8%;
+  left: 50%;
+  transform: translateX(20%);
+}
 
 /* --------------------------------------------------------------------------
    CONTROLS
@@ -186,6 +218,7 @@
   justify-content: center;
   gap: var(--space-3);
   margin-top: var(--space-6);
+  flex-wrap: wrap;
 }
 
 .board-hint {
@@ -197,29 +230,61 @@
 }
 
 /* --------------------------------------------------------------------------
-   RESPONSIVE
+   RESPONSIVE ADAPTATIONS
    -------------------------------------------------------------------------- */
-/* The 861-980px band is the tightest layout the board still renders in: the
-   diagram's 360px offset used to overlap .drag-item-rl, and the stickers at
-   left:320-340px were clipped by the mat's overflow. Pull all three inward. */
-@media (max-width: 980px) {
-  .drag-item-diagram {
-    width: 230px;
-    left: 50%;
-    margin-left: -115px;
-    top: 150px;
+@media (max-width: 860px) {
+  .cutting-mat {
+    min-height: clamp(400px, 78vw, 520px);
   }
 
-  .drag-item-sticker-1 { bottom: 80px; left: 50%; margin-left: -130px; }
-  .drag-item-sticker-2 { top: 60px; left: 50%; margin-left: -50px; }
+  .mat-ruler-top span:nth-child(even) {
+    display: none;
+  }
+
+  .drag-item-diagram {
+    top: 26%;
+  }
+
+  .drag-item-sticker-1 {
+    bottom: 10%;
+    transform: translateX(-100%);
+  }
+
+  .drag-item-sticker-2 {
+    top: 7%;
+    transform: translateX(10%);
+  }
 }
 
-/* Below this width the mat is too narrow to hold seven absolutely-positioned
-   items without piling them on top of each other, and `touch-action: none` on
-   every item turned the whole section into a vertical-scroll trap. The board
-   is a desktop interaction; on phones it is removed rather than faked.
-   The matching nav link is hidden in header.css, and board.js / scenes/board.js
-   bail out at the same breakpoint. */
-@media (max-width: 860px) {
-  .cutting-board-section { display: none; }
+@media (max-width: 540px) {
+  .cutting-mat {
+    min-height: 420px;
+  }
+
+  .drag-item-faiss { top: 5%; left: 3%; width: 140px; }
+  .drag-item-rl { top: 5%; right: 3%; width: 140px; }
+
+  .drag-item-faiss img,
+  .drag-item-rl img { height: 86px; }
+
+  .drag-item-postit-1 { bottom: 6%; left: 4%; width: 130px; }
+  .drag-item-postit-2 { bottom: 6%; right: 4%; width: 130px; }
+
+  .drag-item-diagram {
+    top: 28%;
+    width: 175px;
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .drag-item-diagram ul {
+    font-size: 0.65rem;
+  }
+
+  .drag-item-sticker-1 { bottom: 10%; left: 48%; }
+  .drag-item-sticker-2 { top: 6%; left: 48%; }
+
+  .board-btn {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+  }
 }

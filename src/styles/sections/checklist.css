@@ -61,7 +61,7 @@
 }
 
 .check-item:hover {
-  background: #fdf6ec;
+  background: var(--check-hover-bg);
   border-color: var(--color-primary);
   transform: translateX(4px);
 }
@@ -84,7 +84,7 @@
      every item. Derived from the same font-size/leading the label uses, so it
      stays correct if either changes. */
   margin-top: calc((0.98rem * var(--leading-snug) - 26px) / 2);
-  border: 2px solid #8c7b64;
+  border: 2px solid var(--custom-check-border);
   border-radius: var(--radius-md);
   background: var(--paper-card);
   position: relative;
@@ -131,8 +131,8 @@
    SKETCH REVEAL
    -------------------------------------------------------------------------- */
 .sketch-reveal-box {
-  background: #faf7f0;
-  border: 2px dashed #bfae96;
+  background: var(--sketch-box-bg);
+  border: 2px dashed var(--border-dashed);
   border-radius: var(--radius-lg);
   padding: var(--space-6);
   display: flex;

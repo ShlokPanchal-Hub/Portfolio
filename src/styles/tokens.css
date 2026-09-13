@@ -20,6 +20,8 @@
   --kraft-dark: #ddcaa8;
   --kraft-edge: #dcd4c3;
   --kraft-tint: #f1ebd9;
+  --paper-dot-1: #d6cebe;
+  --paper-dot-2: #e0d7c7;
 
   /* ------------------------------------------------------------------
      INK — a single warm neutral ramp. There is no cool grey in this site.
@@ -192,6 +194,70 @@
   --dur-fast: 0.15s;
   --dur-base: 0.25s;
   --dur-slow: 0.4s;
+
+  /* ------------------------------------------------------------------
+     CRAFT & ARTEFACT VOCABULARY TOKENS
+     Zero raw hex or arbitrary rgba below this file.
+     ------------------------------------------------------------------ */
+  --border-craft: #d4c8b5;
+  --border-card: #ede8de;
+  --border-dashed: #bfae96;
+  --border-header: rgba(220, 210, 195, 0.8);
+  --border-btn: rgba(210, 198, 172, 0.9);
+
+  /* Luggage tag grommet & string */
+  --grommet-fill: #e2d7c5;
+  --grommet-ring: #9e8e77;
+  --tag-string: #8c7b64;
+
+  /* Postmarks & stamps */
+  --stamp-academic-bg: var(--kraft-tint);
+  --stamp-academic-border: var(--ink-500);
+  --stamp-academic-color: var(--ink-600);
+  --postmark-border: rgba(194, 56, 40, 0.4);
+  --postmark-color: rgba(194, 56, 40, 0.65);
+  --postmark-academic-border: rgba(87, 78, 69, 0.4);
+  --postmark-academic-color: rgba(87, 78, 69, 0.7);
+
+  /* Academic & education cards */
+  --edu-item-bg: #f5eedf;
+  --edu-item-date: #8c7b64;
+
+  /* Tech tags and chips */
+  --tech-chip-bg: #ece3d3;
+  --tech-badge-bg: #ece4d2;
+  --tech-diagram-border: #b8aa93;
+  --tech-diagram-title: #8c7b64;
+
+  /* Bio dossier */
+  --dossier-card-bg: #fffdfa;
+  --dossier-pillar-bg: #faf6ee;
+  --dossier-location-color: #786e5b;
+  --dossier-mask-grad-end: #d4c1a3;
+  --brand-badge-color: #736b5e;
+
+  /* Checklist & sketch */
+  --sketch-box-bg: #faf7f0;
+  --check-hover-bg: #fdf6ec;
+  --sketch-dash: #d5c8b5;
+  --custom-check-border: #8c7b64;
+
+  /* Cutting mat & accessories */
+  --coffee-stain-border: rgba(80, 50, 20, 0.2);
+  --coffee-stain-shadow: rgba(80, 50, 20, 0.12);
+  --mat-ruler: rgba(255, 255, 255, 0.4);
+  --mat-brand: rgba(255, 255, 255, 0.35);
+  --postit-text-1: #332d00;
+  --postit-text-2: #4a044e;
+
+  /* Text selection */
+  --color-selection-bg: #ffd6cb;
+
+  /* Safe area insets for mobile notched / dynamic island devices */
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
 
   --focus-ring: 2px solid var(--color-primary);
   --focus-offset: 3px;

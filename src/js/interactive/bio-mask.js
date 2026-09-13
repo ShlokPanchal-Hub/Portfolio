@@ -59,13 +59,19 @@ export function initBioMask() {
   if (prefersReducedMotion) return;
   if (!window.matchMedia(BREAKPOINTS.isDesktop).matches) return;
 
+  const getBounds = () => {
+    const w = container.clientWidth || 260;
+    const h = container.clientHeight || 300;
+    return { minX: -w, maxX: w, minY: -h, maxY: h };
+  };
+
   Draggable.create(mask, {
     type: 'x,y',
-    // Without bounds the cover can be dragged arbitrarily far across the page
-    // before it resolves. One card's width of travel in each direction is far
-    // more than the 70px peel threshold needs.
-    bounds: { minX: -260, maxX: 260, minY: -220, maxY: 220 },
+    bounds: getBounds(),
     edgeResistance: 0.2,
+    allowNativeTouchScrolling: true,
+    dragClickables: true,
+    minimumMovement: 6,
     onDragStart() {
       mask.dataset.dragging = 'true';
     },
@@ -74,11 +80,12 @@ export function initBioMask() {
     },
     onDragEnd() {
       const peeled = Math.hypot(this.x, this.y) > PEEL_THRESHOLD;
+      const travel = (container.clientWidth || 260) * 1.25;
 
       if (peeled) {
         gsap.to(mask, {
-          x: this.x > 0 ? 320 : -320,
-          y: this.y + 120,
+          x: this.x > 0 ? travel : -travel,
+          y: this.y + 100,
           autoAlpha: 0,
           rotation: 25,
           duration: 0.5,

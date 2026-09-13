@@ -10,7 +10,7 @@
   left: 0;
   width: 100%;
   z-index: var(--z-header);
-  padding: var(--space-4) var(--space-6);
+  padding: max(var(--space-4), var(--sat)) var(--space-6) var(--space-4);
   pointer-events: none;
   display: flex;
   justify-content: space-between;
@@ -46,7 +46,7 @@
   backdrop-filter: blur(12px);
   padding: var(--space-2) var(--space-5);
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(220, 210, 195, 0.8);
+  border: 1px solid var(--border-header);
   box-shadow: 0 4px 15px rgba(40, 30, 22, 0.05);
   transition: transform var(--dur-base) var(--ease-smooth);
 }
@@ -76,7 +76,7 @@
   background: var(--kraft-tint);
   padding: 2px var(--space-2);
   border-radius: var(--radius-lg);
-  color: #736b5e;
+  color: var(--brand-badge-color);
 }
 
 /* --------------------------------------------------------------------------
@@ -88,7 +88,7 @@
   backdrop-filter: blur(12px);
   padding: var(--space-2) var(--space-5);
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(220, 210, 195, 0.8);
+  border: 1px solid var(--border-header);
   box-shadow: 0 4px 15px rgba(40, 30, 22, 0.05);
   display: flex;
   align-items: center;
@@ -145,7 +145,7 @@
   backdrop-filter: blur(12px);
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(220, 210, 195, 0.8);
+  border: 1px solid var(--border-header);
   box-shadow: 0 4px 15px rgba(40, 30, 22, 0.05);
 }
 
@@ -208,7 +208,7 @@
   height: 44px;
   border-radius: 50%;
   background: var(--paper);
-  border: 1px solid rgba(210, 198, 172, 0.8);
+  border: 1px solid var(--border-btn);
   color: var(--color-ink);
   transition: transform var(--dur-base) var(--ease-elastic),
               background var(--dur-base) var(--ease-smooth);
@@ -257,25 +257,16 @@
   /* No size override here: 44x44 is the whole point on touch widths. */
 }
 
-/* The cutting board is not rendered below this width (board.css), so its nav
-   link would scroll to nothing. Dropping it also buys the remaining four
-   labels enough room that most phones no longer need to scroll the pill. */
-@media (max-width: 860px) {
-  .header-nav .nav-link[href="#cutting-board"] { display: none; }
-}
-
-/* .site-header already pads the row; the nested .container padded it a second
-   time, and those 32px were exactly what pushed the four nav labels into a
-   scroll they did not otherwise need. */
-@media (max-width: 430px) {
-  .header-inner { padding-inline: 0; gap: var(--space-2); }
-}
-
 @media (max-width: 560px) {
-  .site-header { padding: var(--space-2); }
+  .site-header { padding: max(var(--space-2), var(--sat)) var(--space-2) var(--space-2); }
   .site-brand { padding: var(--space-1) var(--space-2); }
-  /* The avatar still identifies the brand once the wordmark is gone. */
+  /* The avatar still identifies the brand once the wordmark is gone on small screens */
   .brand-name { display: none; }
   .header-nav { gap: 2px; }
   .nav-link { padding: var(--space-1) var(--space-2); font-size: 0.75rem; }
+}
+
+@media (max-width: 430px) {
+  .header-inner { padding-inline: 0; gap: var(--space-1); }
+  .music-toggle-btn { width: 40px; height: 40px; }
 }

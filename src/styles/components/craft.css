@@ -20,7 +20,7 @@
   object-fit: cover;
   border-radius: var(--radius-xs);
   margin-bottom: var(--space-2);
-  border: 1px solid #ede8de;
+  border: 1px solid var(--border-card);
 }
 
 .polaroid .caption {
@@ -178,7 +178,7 @@
 .tech-tag-chip {
   font-family: var(--font-mono);
   font-size: 0.68rem;
-  background: #ece3d3;
+  background: var(--tech-chip-bg);
   color: var(--color-ink);
   padding: 2px var(--space-2);
   border-radius: var(--radius-sm);
@@ -188,7 +188,7 @@
 .tag-tech-badge {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  background: #ece4d2;
+  background: var(--tech-badge-bg);
   color: var(--color-ink);
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-sm);

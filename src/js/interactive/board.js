@@ -1,37 +1,39 @@
 /* ==========================================================================
    CUTTING BOARD — throwable items
-
-   Two changes from the previous implementation:
-
-   1. InertiaPlugin is now free, so items are genuinely throwable — flick one
-      and it carries and settles instead of stopping dead under the cursor.
-
-   2. The hand-rolled pointer-drag fallback is gone. GSAP is bundled now, so
-      `typeof Draggable === 'undefined'` cannot happen; and that fallback was
-      broken anyway — it wrote `item.style.transform` directly, which wiped
-      the rotation GSAP had set on the same element.
+   Fully responsive across all aspect ratios with touch & keyboard support.
    ========================================================================== */
 
-import { gsap, Draggable, BREAKPOINTS } from '../motion.js';
+import { gsap, Draggable } from '../motion.js';
 import { showToast } from '../ui/toast.js';
 
-const Z_FLOOR = 60;
-const Z_CEILING = 79; // stays below --z-drag-active so the mat never escapes
-let topZ = Z_FLOOR;
+let zFloor = 60;
+let zCeiling = 79;
+let topZ = zFloor;
 
 export function initBoard() {
-  // The section is display:none below this width (board.css). Creating seven
-  // Draggables against a zero-sized mat would only produce bad bounds.
-  if (!window.matchMedia(BREAKPOINTS.isDesktop).matches) return;
-
   const mat = document.querySelector('.cutting-mat');
   const items = gsap.utils.toArray('.draggable-item');
   if (!mat || !items.length) return;
+
+  // Resolve z-index bounds dynamically from design tokens
+  const style = getComputedStyle(document.documentElement);
+  const tokenFloor = parseInt(style.getPropertyValue('--z-drag'), 10);
+  const tokenCeiling = parseInt(style.getPropertyValue('--z-drag-active'), 10);
+  if (!Number.isNaN(tokenFloor)) zFloor = tokenFloor;
+  if (!Number.isNaN(tokenCeiling)) zCeiling = Math.max(zFloor + 1, tokenCeiling - 1);
+  topZ = zFloor;
 
   items.forEach((item, index) => {
     const restRotation = index % 2 === 0 ? -4 : 4;
     item.dataset.restRotation = String(restRotation);
     gsap.set(item, { rotation: restRotation });
+
+    // Keyboard accessibility for interactive board elements
+    if (!item.hasAttribute('tabindex')) {
+      item.setAttribute('tabindex', '0');
+    }
+    item.setAttribute('role', 'group');
+    item.setAttribute('aria-label', item.innerText ? item.innerText.slice(0, 40).trim() : 'Workbench item');
 
     Draggable.create(item, {
       type: 'x,y',
@@ -42,22 +44,22 @@ export function initBoard() {
       cursor: 'grab',
       activeCursor: 'grabbing',
       allowContextMenu: true,
+      allowNativeTouchScrolling: true,
+      minimumMovement: 6,
+      dragClickables: true,
       onPress() {
         raise(this.target);
         this.target.classList.add('is-dragging');
       },
       onDragEnd() {
-        // A small rotation kick on release sells the weight of the throw.
+        // Small organic kick on release
         gsap.to(this.target, {
-          rotation: restRotation + gsap.utils.random(-6, 6),
-          duration: 0.6,
+          rotation: restRotation + gsap.utils.random(-5, 5),
+          duration: 0.5,
           ease: 'power2.out',
           onComplete: () => clampIntoMat(this.target, mat)
         });
       },
-      // With InertiaPlugin, onDragEnd fires the moment the pointer lifts and
-      // the throw animates afterwards — so the clamp has to hang off the throw
-      // completing, or it measures a position the item has not reached yet.
       onThrowComplete() {
         clampIntoMat(this.target, mat);
       },
@@ -65,22 +67,56 @@ export function initBoard() {
         this.target.classList.remove('is-dragging');
       }
     });
+
+    // Keyboard nudge interaction (Arrow keys)
+    item.addEventListener('keydown', (event) => {
+      const step = event.shiftKey ? 30 : 12;
+      let dx = 0;
+      let dy = 0;
+
+      if (event.key === 'ArrowLeft') dx = -step;
+      else if (event.key === 'ArrowRight') dx = step;
+      else if (event.key === 'ArrowUp') dy = -step;
+      else if (event.key === 'ArrowDown') dy = step;
+      else return;
+
+      event.preventDefault();
+      raise(item);
+
+      const curX = Number(gsap.getProperty(item, 'x')) || 0;
+      const curY = Number(gsap.getProperty(item, 'y')) || 0;
+
+      gsap.to(item, {
+        x: curX + dx,
+        y: curY + dy,
+        duration: 0.2,
+        ease: 'power1.out',
+        onComplete: () => clampIntoMat(item, mat)
+      });
+    });
   });
+
+  // Re-check bounds when mat dimensions adapt to viewport or orientation changes
+  window.addEventListener('resize', () => {
+    items.forEach((item) => {
+      const dragInstance = Draggable.get(item);
+      if (dragInstance) {
+        dragInstance.applyBounds(mat);
+        clampIntoMat(item, mat);
+      }
+    });
+  }, { passive: true });
 
   bindControls(mat, items);
 }
 
 /** Keeps the dragged item on top without letting z-index grow without bound. */
 function raise(target) {
-  topZ = topZ >= Z_CEILING ? Z_FLOOR : topZ + 1;
+  topZ = topZ >= zCeiling ? zFloor : topZ + 1;
   target.style.zIndex = String(topZ);
 }
 
-/**
- * Axis-aligned size of an element once rotated. A 190x120 note at 15 degrees
- * occupies roughly 215x172, and that extra 25px is exactly what used to let a
- * scattered item hang over the edge of the mat.
- */
+/** Axis-aligned extent of an element once rotated */
 function rotatedExtent(el, degrees) {
   const rad = Math.abs(degrees * Math.PI / 180);
   const cos = Math.abs(Math.cos(rad));
@@ -94,17 +130,12 @@ function rotatedExtent(el, degrees) {
   };
 }
 
-/**
- * Where the element's untransformed layout box sits inside the mat. Read from
- * offsetLeft/offsetTop rather than getBoundingClientRect, which reports the
- * rotated bounding box and would fold the rotation into the origin.
- */
+/** Where the element's untransformed layout box sits inside the mat. */
 function restPosition(el) {
   let left = el.offsetLeft;
   let top = el.offsetTop;
   let parent = el.offsetParent;
 
-  // Walk up to the mat in case an item is ever nested deeper than one level.
   while (parent && !parent.classList.contains('cutting-mat')) {
     left += parent.offsetLeft;
     top += parent.offsetTop;
@@ -114,7 +145,7 @@ function restPosition(el) {
   return { left, top };
 }
 
-/** Pulls an item fully back inside the mat after a rotation moved a corner out. */
+/** Pulls an item fully back inside the mat bounds */
 function clampIntoMat(el, mat) {
   const rotation = Number(gsap.getProperty(el, 'rotation')) || 0;
   const { width, height } = rotatedExtent(el, rotation);
@@ -147,28 +178,21 @@ function bindControls(mat, items) {
   const resetBtn = document.getElementById('resetBoardBtn');
 
   scatterBtn?.addEventListener('click', () => {
-    // clientWidth/clientHeight, not getBoundingClientRect: items are absolutely
-    // positioned against the mat's padding box, and the mat has a 12px border.
     const matWidth = mat.clientWidth;
     const matHeight = mat.clientHeight;
 
     items.forEach((item) => {
-      // Pick the rotation first: a rotated box needs more room than its layout
-      // box, and how much more depends on the angle.
-      const rotation = gsap.utils.random(-15, 15);
+      const rotation = gsap.utils.random(-14, 14);
       const { width, height } = rotatedExtent(item, rotation);
-
       const rest = restPosition(item);
 
-      // The rotated box is centred on the layout box, so the extra width sits
-      // half on each side — that overhang is what used to push items off the mat.
       const padX = (width - item.offsetWidth) / 2;
       const padY = (height - item.offsetHeight) / 2;
 
-      const minLeft = padX;
-      const maxLeft = Math.max(minLeft, matWidth - item.offsetWidth - padX);
-      const minTop = padY;
-      const maxTop = Math.max(minTop, matHeight - item.offsetHeight - padY);
+      const minLeft = padX + 8;
+      const maxLeft = Math.max(minLeft, matWidth - item.offsetWidth - padX - 8);
+      const minTop = padY + 8;
+      const maxTop = Math.max(minTop, matHeight - item.offsetHeight - padY - 8);
 
       gsap.to(item, {
         x: gsap.utils.random(minLeft, maxLeft) - rest.left,

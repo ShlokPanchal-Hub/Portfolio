@@ -25,7 +25,7 @@ import './styles/sections/checklist.css';
 import './styles/sections/connect.css';
 
 import { ScrollTrigger } from './js/motion.js';
-import { initSmoother } from './js/scroll/smoother.js';
+import { initSmoother, scrollToTarget } from './js/scroll/smoother.js';
 import { initProgressRail } from './js/scroll/progress.js';
 
 import { initHeroScene } from './js/scroll/scenes/hero.js';
@@ -46,6 +46,7 @@ import { initChecklist } from './js/interactive/checklist.js';
 
 function boot() {
   initSmoother();
+  window.scrollToTarget = scrollToTarget;
 
   const sections = Array.from(document.querySelectorAll('main section[id]'));
 
