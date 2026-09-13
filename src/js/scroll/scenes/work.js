@@ -45,6 +45,18 @@ function drawSectionUnderlines() {
   });
 }
 
+/**
+ * Sets the tag's pivot to the centre of its grommet. offsetLeft/offsetTop, not
+ * getBoundingClientRect: the grommet's offsetParent is the tag itself, and the
+ * rect would report the rotated bounding box of a tag mid-swing.
+ */
+function setTagOrigin(tag, grommet) {
+  gsap.set(tag, {
+    transformOrigin: `${grommet.offsetLeft + grommet.offsetWidth / 2}px ` +
+                     `${grommet.offsetTop + grommet.offsetHeight / 2}px`
+  });
+}
+
 /* --------------------------------------------------------------------------
    1. LUGGAGE TAG — hangs from the grommet, so it swings rather than fades.
    -------------------------------------------------------------------------- */
@@ -52,8 +64,14 @@ function luggageTag() {
   const tag = document.querySelector('.artefact-luggage-tag');
   if (!tag) return;
 
-  // Pivot at the grommet (left: 62px + half its 20px width, top: 14px + half)
-  gsap.set(tag, { transformOrigin: '72px 24px' });
+  // Pivot at the grommet's centre. Measured rather than hardcoded: the grommet
+  // moves from left:62px to left:22px at <=640px (work.css), and a literal
+  // origin swung the tag around a point 40px outside its own hinge on mobile.
+  const grommet = tag.querySelector('.tag-grommet');
+  if (grommet) {
+    ScrollTrigger.addEventListener('refreshInit', () => setTagOrigin(tag, grommet));
+    setTagOrigin(tag, grommet);
+  }
 
   gsap.from(tag, {
     rotation: -7,
@@ -185,8 +203,9 @@ function wristband() {
     return () => gsap.set([band, bullets, preview], { clearProps: 'all' });
   });
 
-  // No pin where there is no room for one.
-  mm.add(`(max-width: 860px), (max-height: 699px)`, () => {
+  // No pin where there is no room for one. Derived from BREAKPOINTS so it
+  // cannot drift out of sync with hasRoomToPin above.
+  mm.add(BREAKPOINTS.noRoomToPin, () => {
     gsap.from(band, {
       y: 48,
       autoAlpha: 0,

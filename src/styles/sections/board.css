@@ -199,45 +199,27 @@
 /* --------------------------------------------------------------------------
    RESPONSIVE
    -------------------------------------------------------------------------- */
-@media (max-width: 860px) {
-  .cutting-mat { height: 520px; }
-
-  .drag-item-faiss { width: 175px; left: var(--space-5); top: var(--space-8); }
-  .drag-item-rl { width: 175px; right: var(--space-5); top: var(--space-8); }
-
+/* The 861-980px band is the tightest layout the board still renders in: the
+   diagram's 360px offset used to overlap .drag-item-rl, and the stickers at
+   left:320-340px were clipped by the mat's overflow. Pull all three inward. */
+@media (max-width: 980px) {
   .drag-item-diagram {
-    width: 220px;
+    width: 230px;
     left: 50%;
-    margin-left: -110px;
-    top: 130px;
+    margin-left: -115px;
+    top: 150px;
   }
 
-  .drag-item-postit-1 { width: 160px; left: var(--space-8); bottom: var(--space-8); }
-  .drag-item-postit-2 { width: 160px; right: var(--space-8); bottom: var(--space-8); }
+  .drag-item-sticker-1 { bottom: 80px; left: 50%; margin-left: -130px; }
+  .drag-item-sticker-2 { top: 60px; left: 50%; margin-left: -50px; }
 }
 
-@media (max-width: 480px) {
-  .cutting-mat { height: 480px; border-width: 8px; }
-
-  .drag-item-faiss { width: 145px; left: var(--space-3); top: var(--space-5); }
-  .drag-item-rl { width: 145px; right: var(--space-3); top: var(--space-5); }
-
-  .drag-item-diagram { width: 180px; margin-left: -90px; top: 120px; }
-
-  .drag-item-postit-1 {
-    width: 135px;
-    left: var(--space-3);
-    bottom: var(--space-7);
-    padding: var(--space-3);
-  }
-
-  .drag-item-postit-2 {
-    width: 135px;
-    right: var(--space-3);
-    bottom: var(--space-7);
-    padding: var(--space-3);
-  }
-
-  .drag-item-sticker-1,
-  .drag-item-sticker-2 { display: none; }
+/* Below this width the mat is too narrow to hold seven absolutely-positioned
+   items without piling them on top of each other, and `touch-action: none` on
+   every item turned the whole section into a vertical-scroll trap. The board
+   is a desktop interaction; on phones it is removed rather than faked.
+   The matching nav link is hidden in header.css, and board.js / scenes/board.js
+   bail out at the same breakpoint. */
+@media (max-width: 860px) {
+  .cutting-board-section { display: none; }
 }

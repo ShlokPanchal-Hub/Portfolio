@@ -11,7 +11,7 @@
    the one the reader actually worked for.
    ========================================================================== */
 
-import { gsap, Draggable, prefersReducedMotion } from '../motion.js';
+import { gsap, Draggable, prefersReducedMotion, BREAKPOINTS } from '../motion.js';
 import { showToast } from '../ui/toast.js';
 
 const PEEL_THRESHOLD = 70;
@@ -53,7 +53,11 @@ export function initBioMask() {
     reveal(false);
   });
 
+  // Dragging needs `touch-action: none`, which turns the whole portrait into a
+  // dead zone for vertical page scrolling on a phone. The click/keyboard route
+  // above already reveals the photo, so touch widths keep the scroll instead.
   if (prefersReducedMotion) return;
+  if (!window.matchMedia(BREAKPOINTS.isDesktop).matches) return;
 
   Draggable.create(mask, {
     type: 'x,y',

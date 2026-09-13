@@ -8,7 +8,7 @@
    scroll direction via ScrollTrigger's own update pass. Zero extra listeners.
    ========================================================================== */
 
-import { ScrollTrigger } from '../motion.js';
+import { ScrollTrigger, prefersReducedMotion } from '../motion.js';
 import { scrollToTarget } from '../scroll/smoother.js';
 
 export function initNav(sections) {
@@ -59,6 +59,21 @@ function bindActiveState(links, sections) {
         other.removeAttribute('aria-current');
       }
     });
+
+    // The pill scrolls horizontally on narrow screens and has no visible
+    // scrollbar, so the link for the section you are actually in can sit
+    // off the edge. Pull it back into view instead of leaving the reader to
+    // discover a sideways swipe.
+    // scrollLeft on the pill rather than link.scrollIntoView(): the latter can
+    // scroll the document as well, and ScrollSmoother's normalizeScroll does
+    // not appreciate a second thing driving page scroll mid-update.
+    const pill = link.parentElement;
+    if (pill && pill.scrollWidth > pill.clientWidth) {
+      pill.scrollTo({
+        left: link.offsetLeft - (pill.clientWidth - link.offsetWidth) / 2,
+        behavior: prefersReducedMotion ? 'auto' : 'smooth'
+      });
+    }
   };
 
   sections.forEach((section) => {

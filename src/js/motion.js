@@ -34,6 +34,9 @@ export const BREAKPOINTS = {
   isDesktop: '(min-width: 861px)',
   isMobile: '(max-width: 860px)',
   hasRoomToPin: '(min-width: 861px) and (min-height: 700px)',
+  // The exact inverse of hasRoomToPin. Kept next to it so the pinned scene and
+  // its fallback cannot drift apart the way two hand-typed strings would.
+  noRoomToPin: '(max-width: 860px), (max-height: 699px)',
   reduceMotion: '(prefers-reduced-motion: reduce)'
 };
 
