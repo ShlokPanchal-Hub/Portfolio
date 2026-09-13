@@ -14,14 +14,21 @@ export function initChecklistScene() {
   const box = document.querySelector('.checklist-card-box');
   if (!box) return;
 
-  gsap.from('.check-item', {
-    x: -30,
-    autoAlpha: 0,
-    duration: 0.55,
-    stagger: 0.1,
-    ease: 'power3.out',
-    scrollTrigger: { trigger: box, start: 'top 80%' }
-  });
+  // fromTo, not from: a staggered `from` tween re-reads each target's
+  // current value as its END on invalidation, and because immediateRender
+  // already wrote the start value there, every target animated to its own
+  // start and froze. Explicit end values cannot be re-derived.
+  gsap.fromTo('.check-item',
+    { x: -30, autoAlpha: 0 },
+    {
+      x: 0,
+      autoAlpha: 1,
+      duration: 0.55,
+      stagger: 0.1,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: box, start: 'top 80%' }
+    }
+  );
 
   gsap.from('.sketch-reveal-box', {
     scale: 0.88,
@@ -64,13 +71,20 @@ export function initConnectScene() {
     scrollTrigger: { trigger: banner, start: 'top 88%' }
   });
 
-  gsap.from('.social-btn', {
-    y: 18,
-    autoAlpha: 0,
-    duration: 0.45,
-    stagger: 0.07,
-    scrollTrigger: { trigger: '.social-links-grid', start: 'top 92%' }
-  });
+  // fromTo, not from: a staggered `from` tween re-reads each target's
+  // current value as its END on invalidation, and because immediateRender
+  // already wrote the start value there, every target animated to its own
+  // start and froze. Explicit end values cannot be re-derived.
+  gsap.fromTo('.social-btn',
+    { y: 18, autoAlpha: 0 },
+    {
+      y: 0,
+      autoAlpha: 1,
+      duration: 0.45,
+      stagger: 0.07,
+      scrollTrigger: { trigger: '.social-links-grid', start: 'top 92%' }
+    }
+  );
 
   gsap.from('.footer-bottom-notes', {
     autoAlpha: 0,
