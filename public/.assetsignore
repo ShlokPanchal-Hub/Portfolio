@@ -1,0 +1,3 @@
+# Never upload these to the Worker's asset store, even if macOS recreates them.
+.DS_Store
+**/.DS_Store

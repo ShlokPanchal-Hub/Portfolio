@@ -84,6 +84,12 @@
 }
 
 .footer-meta-links a {
+  /* 0.74rem mono text is a ~21px-tall target; grow the box, not the type. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
   border-bottom: 1px solid transparent;
   transition: color var(--dur-base) var(--ease-smooth),
               border-color var(--dur-base) var(--ease-smooth);

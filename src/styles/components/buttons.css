@@ -80,6 +80,7 @@
   border: 1.5px solid rgba(210, 198, 172, 0.9);
   padding: var(--space-2) var(--space-5);
   border-radius: var(--radius-pill);
+  min-height: 44px;
   font-family: var(--font-sans);
   font-weight: 600;
   font-size: 0.9rem;
@@ -114,6 +115,7 @@
   border: 1.5px solid var(--kraft-edge);
   padding: var(--space-3) var(--space-5);
   border-radius: var(--radius-pill);
+  min-height: 44px;
   font-family: var(--font-sans);
   font-size: 0.92rem;
   font-weight: 600;

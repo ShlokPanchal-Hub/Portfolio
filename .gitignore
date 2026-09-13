@@ -31,3 +31,6 @@ build/
 
 # Vite build output
 dist/
+
+# Wrangler local state
+.wrangler/
