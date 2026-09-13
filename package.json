@@ -1,0 +1,20 @@
+{
+  "name": "shlok-panchal-portfolio",
+  "version": "1.0.0",
+  "description": "Interactive scrapbook portfolio for Shlok Panchal — Data Scientist & Full-Stack AI Engineer.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "canvas-confetti": "^1.9.3",
+    "gsap": "^3.15.0"
+  },
+  "devDependencies": {
+    "vite": "^7.1.5",
+    "wrangler": "^4.131.1"
+  }
+}

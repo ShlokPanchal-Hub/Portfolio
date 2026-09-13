@@ -1,0 +1,9 @@
+# Vite fingerprints everything under /static/, so the bytes behind those URLs
+# can never change. Cloudflare CONCATENATES overlapping rules rather than
+# overriding them, so these two prefixes must not overlap.
+/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images keep stable filenames, so a swapped photo has to be able to propagate.
+/assets/images/*
+  Cache-Control: public, max-age=86400

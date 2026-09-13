@@ -1,0 +1,90 @@
+/* ==========================================================================
+   READING PROGRESS RAIL
+   A hand-drawn ink line down the left edge that fills as the page advances.
+   Continuous progress feedback is the strongest single signal that there is
+   more worth scrolling to — this one is drawn, not a flat browser bar.
+
+   Lives OUTSIDE #smooth-wrapper (fixed positioning).
+   ========================================================================== */
+
+.reading-progress {
+  position: fixed;
+  top: 50%;
+  left: var(--space-5);
+  transform: translateY(-50%);
+  z-index: var(--z-progress);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-smooth);
+}
+
+.reading-progress.is-visible {
+  opacity: 1;
+}
+
+.reading-progress svg {
+  width: 14px;
+  height: 42vh;
+  max-height: 420px;
+  overflow: visible;
+}
+
+/* The faint full-length guide */
+.rail-track {
+  fill: none;
+  stroke: var(--ink-200);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0.55;
+}
+
+/* The inked-in portion, scrubbed via stroke-dashoffset */
+.rail-fill {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+/* Chapter dots, one per section */
+.rail-marks {
+  position: absolute;
+  left: 4px;
+  top: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.rail-mark {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ink-200);
+  transition: background var(--dur-base) var(--ease-smooth),
+              transform var(--dur-base) var(--ease-elastic);
+}
+
+.rail-mark.is-active {
+  background: var(--color-primary);
+  transform: scale(1.8);
+}
+
+.rail-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+  writing-mode: vertical-rl;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The rail costs horizontal room the small layouts do not have. */
+@media (max-width: 1180px) {
+  .reading-progress { display: none; }
+}

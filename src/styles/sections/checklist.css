@@ -1,0 +1,200 @@
+/* ==========================================================================
+   CHECKLIST — "what I look for"
+   ========================================================================== */
+
+.checklist-section {
+  padding: var(--section-pad-top) 0 var(--section-pad-bottom);
+  position: relative;
+}
+
+.checklist-card-box {
+  background: var(--paper-card);
+  border: 2px solid var(--kraft-edge);
+  border-radius: var(--radius-xl);
+  padding: var(--space-9);
+  box-shadow: var(--shadow-paper-lg);
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--space-9);
+  align-items: center;
+  position: relative;
+}
+
+.checklist-title {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  letter-spacing: var(--tracking-snug);
+  margin-bottom: var(--space-2);
+  color: var(--color-ink);
+}
+
+.checklist-desc {
+  font-size: var(--text-md);
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-7);
+  line-height: var(--leading-normal);
+}
+
+.checklist-items-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Real checkbox semantics — role, tabindex and aria-checked live on the
+   element, so these are operable by keyboard and announced correctly. */
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: var(--paper-raw);
+  border: 1.5px solid var(--kraft);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  user-select: none;
+  transition: background var(--dur-base) var(--ease-smooth),
+              border-color var(--dur-base) var(--ease-smooth),
+              transform var(--dur-base) var(--ease-smooth);
+}
+
+.check-item:hover {
+  background: #fdf6ec;
+  border-color: var(--color-primary);
+  transform: translateX(4px);
+}
+
+.check-item:active {
+  transform: translateX(4px) scale(0.99);
+}
+
+.check-item[aria-checked='true'] {
+  background: var(--color-primary-wash);
+  border-color: var(--color-primary);
+}
+
+.custom-checkbox {
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  border: 2px solid #8c7b64;
+  border-radius: var(--radius-md);
+  background: var(--paper-card);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color var(--dur-base) var(--ease-smooth);
+}
+
+.check-item[aria-checked='true'] .custom-checkbox {
+  border-color: var(--color-primary);
+}
+
+.check-item .checkmark-svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--color-primary);
+  stroke-width: 3;
+  fill: none;
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  transition: stroke-dashoffset var(--dur-slow) var(--ease-out);
+}
+
+.check-item[aria-checked='true'] .checkmark-svg {
+  stroke-dashoffset: 0;
+}
+
+.check-item-text {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  line-height: var(--leading-snug);
+}
+
+.check-item-sub {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--color-ink-muted);
+  margin-top: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   SKETCH REVEAL
+   -------------------------------------------------------------------------- */
+.sketch-reveal-box {
+  background: #faf7f0;
+  border: 2px dashed #bfae96;
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.sketch-canvas-wrap {
+  width: 220px;
+  height: 220px;
+  position: relative;
+  margin-bottom: var(--space-4);
+}
+
+.sketch-canvas-wrap svg {
+  width: 100%;
+  height: 100%;
+}
+
+.sketch-layer {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.sketch-progress-pill {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  background: var(--paper-card);
+  border: 1px solid var(--kraft);
+  padding: var(--space-1) var(--space-4);
+  border-radius: var(--radius-pill);
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-2);
+  font-variant-numeric: tabular-nums;
+  transition: color var(--dur-base) var(--ease-smooth);
+}
+
+.sketch-progress-pill.is-complete {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.sketch-match-msg {
+  font-family: var(--font-hand);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  min-height: 2rem;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 860px) {
+  .checklist-card-box {
+    grid-template-columns: 1fr;
+    padding: var(--space-7) var(--space-5);
+    gap: var(--space-7);
+  }
+}
+
+@media (max-width: 580px) {
+  .checklist-card-box {
+    padding: var(--space-6) var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+}

@@ -28,3 +28,9 @@ yarn-error.log*
 node_modules/
 dist/
 build/
+
+# Vite build output
+dist/
+
+# Wrangler local state
+.wrangler/

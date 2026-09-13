@@ -1,0 +1,635 @@
+/* ==========================================================================
+   WORK JOURNEY — luggage tag, boarding pass, wristband, postcards
+
+   Colour note: the two dark artefacts used to be cool slate (#0f172a /
+   #334155 / #38bdf8) sitting inside a warm cream page, which read as a
+   pasted-in card from another site. They now draw from the warm ink ramp in
+   tokens.css, so they read as the night side of the same paper.
+   ========================================================================== */
+
+.work-journey-section {
+  padding: var(--section-pad-top) 0 var(--section-pad-bottom);
+  position: relative;
+}
+
+.journey-artefacts-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   ARTEFACT 1 — LUGGAGE TAG
+   Swings in from its grommet on scroll entry (see scenes/work.js).
+   -------------------------------------------------------------------------- */
+.artefact-luggage-tag {
+  position: relative;
+  background: var(--paper-aged);
+  border: 2px solid #d4c8b5;
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-paper-lg);
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: var(--space-8);
+  align-items: center;
+  transition: transform var(--dur-slow) var(--ease-smooth),
+              box-shadow var(--dur-slow) var(--ease-smooth);
+}
+
+.artefact-luggage-tag:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lift);
+}
+
+.tag-string-loop {
+  position: absolute;
+  top: -38px;
+  left: 60px;
+  width: 24px;
+  height: 50px;
+  border: 3px solid #8c7b64;
+  border-radius: 20px 20px 0 0;
+  border-bottom: none;
+  z-index: var(--z-base);
+  pointer-events: none;
+}
+
+.tag-grommet {
+  position: absolute;
+  top: 14px;
+  left: 62px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #e2d7c5;
+  border: 3px solid #9e8e77;
+  box-shadow: inset 0 2px 4px rgba(40, 30, 22, 0.35);
+}
+
+.tag-meta-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+  padding-left: var(--space-9);
+}
+
+.tag-company-pill {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  background: var(--kraft-tint);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-md);
+  color: #635746;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.tag-period {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+}
+
+.tag-title {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  line-height: var(--leading-snug);
+  margin-bottom: var(--space-3);
+  color: var(--color-ink);
+}
+
+.tag-role-badge {
+  display: inline-block;
+  font-family: var(--font-hand);
+  font-size: 1.25rem;
+  color: var(--color-primary);
+  font-weight: 700;
+  margin-bottom: var(--space-5);
+}
+
+.tag-bullets,
+.pass-bullets,
+.wristband-bullets {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.tag-bullets li,
+.pass-bullets li,
+.wristband-bullets li {
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  position: relative;
+  padding-left: var(--space-5);
+}
+
+.tag-bullets li { color: var(--color-ink-light); }
+.tag-bullets strong { color: var(--color-ink); font-weight: 700; }
+
+.tag-bullets li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.tag-visual-card {
+  position: relative;
+  background: var(--paper-card);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  border: 1px solid #e2d9cb;
+  box-shadow: var(--shadow-paper);
+  transform: rotate(2deg);
+  transition: transform var(--dur-slow) var(--ease-elastic);
+}
+
+.artefact-luggage-tag:hover .tag-visual-card {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.tag-visual-card img {
+  width: 100%;
+  border-radius: var(--radius-md);
+  border: 1px solid #efeae0;
+}
+
+.tag-visual-caption {
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+  text-align: center;
+  margin-top: var(--space-3);
+  color: var(--color-ink);
+}
+
+/* --------------------------------------------------------------------------
+   ARTEFACT 2 — BOARDING PASS
+   Assembles from two halves meeting at the perforation (see scenes/work.js).
+   -------------------------------------------------------------------------- */
+.artefact-boarding-pass {
+  position: relative;
+  background: var(--paper-card);
+  border-radius: 14px;
+  border: 2px solid var(--surface-ink-border);
+  box-shadow: var(--shadow-paper-lg);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  overflow: hidden;
+  transition: transform var(--dur-slow) var(--ease-smooth),
+              box-shadow var(--dur-slow) var(--ease-smooth);
+}
+
+.artefact-boarding-pass:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lift);
+}
+
+.pass-main-stub {
+  padding: var(--space-8) var(--space-8);
+}
+
+.pass-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--surface-ink);
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.pass-airline {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: var(--tracking-snug);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.pass-flight-no {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  background: var(--surface-ink);
+  color: var(--on-ink);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+}
+
+.pass-flight-info-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  background: var(--paper-raw);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--kraft-edge);
+  margin-bottom: var(--space-6);
+}
+
+.pass-info-cell .label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-1);
+}
+
+.pass-info-cell .val {
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.pass-title {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  color: var(--color-ink);
+  margin-bottom: var(--space-4);
+  line-height: var(--leading-snug);
+}
+
+.pass-bullets li { color: var(--color-ink-light); }
+.pass-bullets strong { color: var(--color-ink); }
+
+.pass-bullets li::before {
+  content: '■';
+  position: absolute;
+  left: 0;
+  font-size: 0.6rem;
+  top: 6px;
+  color: var(--color-primary);
+}
+
+/* Tear-off stub */
+.pass-tear-stub {
+  background: var(--kraft-tint);
+  border-left: 2px dashed var(--ink-200);
+  padding: var(--space-8) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.pass-tear-stub::before,
+.pass-tear-stub::after {
+  content: '';
+  position: absolute;
+  left: -12px;
+  width: 22px;
+  height: 22px;
+  background: var(--paper-canvas);
+  border-radius: 50%;
+}
+
+.pass-tear-stub::before {
+  top: -12px;
+  border-bottom: 2px solid var(--surface-ink-border);
+}
+
+.pass-tear-stub::after {
+  bottom: -12px;
+  border-top: 2px solid var(--surface-ink-border);
+}
+
+.stub-qr-box {
+  background: var(--paper-card);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--kraft-edge);
+  text-align: center;
+  margin-bottom: var(--space-4);
+}
+
+.stub-qr-box img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+}
+
+.stub-caption {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-ink-muted);
+  margin-top: var(--space-2);
+}
+
+.stub-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: var(--leading-normal);
+  text-align: center;
+  color: var(--color-ink-light);
+  font-variant-numeric: tabular-nums;
+}
+
+.stub-gate {
+  text-align: center;
+  border-top: 1px dashed var(--ink-200);
+  padding-top: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.stub-gate-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-ink-muted);
+}
+
+.stub-gate-value {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--color-ink);
+}
+
+/* --------------------------------------------------------------------------
+   ARTEFACT 3 — VIP WRISTBAND (the pinned, scrubbed reading beat)
+   -------------------------------------------------------------------------- */
+.artefact-wristband {
+  position: relative;
+  background: linear-gradient(135deg, var(--surface-ink) 0%, var(--surface-ink-deep) 100%);
+  color: var(--on-ink);
+  border-radius: 14px;
+  padding: var(--space-8);
+  box-shadow: var(--shadow-ink);
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: var(--space-8);
+  align-items: center;
+  border: 2px solid var(--surface-ink-border);
+  transition: transform var(--dur-slow) var(--ease-smooth),
+              box-shadow var(--dur-slow) var(--ease-smooth);
+}
+
+.artefact-wristband:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 26px 50px -12px rgba(16, 13, 11, 0.55);
+}
+
+.wristband-clip {
+  position: absolute;
+  top: var(--space-5);
+  right: var(--space-5);
+  background: linear-gradient(135deg, var(--color-secondary-on-ink), var(--color-secondary-dark), var(--color-secondary-on-ink));
+  color: var(--surface-ink-deep);
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: var(--text-xs);
+  padding: var(--space-1) var(--space-4);
+  border-radius: var(--radius-pill);
+  letter-spacing: var(--tracking-wider);
+  box-shadow: 0 2px 10px rgba(232, 163, 61, 0.28);
+}
+
+.wristband-tag {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-secondary-on-ink);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  margin-bottom: var(--space-2);
+}
+
+.wristband-title {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  color: var(--on-ink);
+  margin-bottom: var(--space-4);
+  line-height: var(--leading-snug);
+}
+
+.wristband-bullets li { color: var(--on-ink-muted); }
+.wristband-bullets strong { color: var(--color-secondary-on-ink); }
+
+.wristband-bullets li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  font-size: 0.9rem;
+  top: 1px;
+  color: var(--color-secondary-on-ink);
+}
+
+.wristband-tech-row { margin-top: var(--space-4); }
+
+.wristband-preview {
+  background: var(--surface-ink-deep);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--surface-ink-border);
+  box-shadow: 0 10px 25px rgba(16, 13, 11, 0.5);
+  transform: rotate(-2deg);
+}
+
+.wristband-preview img {
+  width: 100%;
+  border-radius: var(--radius-md);
+}
+
+/* --------------------------------------------------------------------------
+   ARTEFACT 4 — POSTCARDS
+   -------------------------------------------------------------------------- */
+.artefact-postcard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-8);
+}
+
+.postcard-card {
+  background: var(--paper-warm);
+  border: 2px solid var(--kraft-edge);
+  border-radius: var(--radius-lg);
+  padding: var(--space-7);
+  box-shadow: var(--shadow-paper);
+  position: relative;
+  transition: transform var(--dur-slow) var(--ease-smooth);
+}
+
+.postcard-card:hover {
+  transform: translateY(-3px) rotate(0.5deg);
+}
+
+.postage-stamp {
+  position: absolute;
+  top: var(--space-6);
+  right: var(--space-6);
+  width: 65px;
+  height: 75px;
+  background: var(--color-primary-wash);
+  border: 2px dashed var(--color-primary);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--color-primary-dark);
+  text-align: center;
+  padding: var(--space-1);
+}
+
+/* The academic stamp reads as an official embossed mark, not a second accent */
+.postage-stamp--academic {
+  background: var(--kraft-tint);
+  border-color: var(--ink-500);
+  color: var(--ink-600);
+}
+
+.postmark-circle {
+  position: absolute;
+  top: var(--space-4);
+  right: 65px;
+  width: 60px;
+  height: 60px;
+  border: 2px solid rgba(194, 56, 40, 0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: rgba(194, 56, 40, 0.65);
+  transform: rotate(-15deg);
+  pointer-events: none;
+}
+
+.postmark-circle--academic {
+  border-color: rgba(87, 78, 69, 0.4);
+  color: rgba(87, 78, 69, 0.7);
+}
+
+.postcard-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  margin-bottom: var(--space-2);
+  color: var(--color-ink);
+}
+
+.postcard-subtitle {
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+  color: var(--color-primary);
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+}
+
+.postcard-body {
+  font-size: var(--text-base);
+  color: var(--color-ink-light);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-5);
+}
+
+.education-pill-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.edu-item {
+  background: #f5eedf;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--color-primary);
+}
+
+.edu-deg {
+  font-weight: 700;
+  font-size: var(--text-base);
+  color: var(--color-ink);
+}
+
+.edu-school {
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+}
+
+.edu-date {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #8c7b64;
+  margin-top: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+/* The 4-up departures grid needs to fold before the card itself does. */
+@media (max-width: 1100px) {
+  .pass-flight-info-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 920px) {
+  .artefact-luggage-tag,
+  .artefact-boarding-pass,
+  .artefact-wristband,
+  .artefact-postcard-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-7);
+  }
+
+  .pass-tear-stub {
+    border-left: none;
+    border-top: 2px dashed var(--ink-200);
+  }
+
+  .pass-tear-stub::before,
+  .pass-tear-stub::after { display: none; }
+}
+
+@media (max-width: 640px) {
+  .artefact-luggage-tag,
+  .artefact-boarding-pass,
+  .artefact-wristband {
+    padding: var(--space-6) var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+
+  .pass-main-stub { padding: var(--space-6) var(--space-4); }
+
+  .tag-string-loop { left: var(--space-5); }
+  .tag-grommet { left: 22px; }
+
+  .tag-meta-top {
+    padding-left: var(--space-6);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .pass-flight-info-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+    padding: var(--space-3);
+  }
+
+  .pass-info-cell .val { font-size: var(--text-sm); }
+
+  .postcard-card { padding: var(--space-6) var(--space-4); }
+
+  .postage-stamp {
+    width: 50px;
+    height: 60px;
+    top: var(--space-4);
+    right: var(--space-4);
+    font-size: 0.58rem;
+  }
+
+  .postmark-circle { display: none; }
+}
