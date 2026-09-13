@@ -2,6 +2,11 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "portfolio",
   "compatibility_date": "2026-09-13",
+  // Runs before every deploy, including Workers Builds in CI. Without it a
+  // deploy command on its own finds no ./dist and fails.
+  "build": {
+    "command": "npm run build"
+  },
   "assets": {
     "directory": "./dist"
   }
