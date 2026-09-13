@@ -75,11 +75,15 @@
           <span>Connect</span>
           <svg class="nav-scribble" aria-hidden="true"><use href="#svg-scribble-box"/></svg>
         </a>
-        <button id="musicToggleBtn" class="music-toggle-btn" type="button"
-                aria-pressed="false" title="Play the lo-fi soundtrack" aria-label="Toggle lo-fi soundtrack">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-        </button>
       </nav>
+
+      <!-- Sibling of the nav, not a child: .header-nav scrolls horizontally on
+           narrow screens, and the toggle used to scroll away off-screen with
+           the links. -->
+      <button id="musicToggleBtn" class="music-toggle-btn" type="button"
+              aria-pressed="false" title="Play the lo-fi soundtrack" aria-label="Toggle lo-fi soundtrack">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+      </button>
     </div>
   </header>
 
@@ -543,6 +547,7 @@
                       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v3"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v6"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>
                     </span>
                     <span class="mask-hint-text">Drag the cover aside</span>
+                    <span class="mask-hint-text mask-hint-text--touch">Tap to reveal</span>
                     <span class="mask-hint-sub">(or click to reveal)</span>
                   </button>
 

@@ -12,7 +12,7 @@
       the rotation GSAP had set on the same element.
    ========================================================================== */
 
-import { gsap, Draggable } from '../motion.js';
+import { gsap, Draggable, BREAKPOINTS } from '../motion.js';
 import { showToast } from '../ui/toast.js';
 
 const Z_FLOOR = 60;
@@ -20,6 +20,10 @@ const Z_CEILING = 79; // stays below --z-drag-active so the mat never escapes
 let topZ = Z_FLOOR;
 
 export function initBoard() {
+  // The section is display:none below this width (board.css). Creating seven
+  // Draggables against a zero-sized mat would only produce bad bounds.
+  if (!window.matchMedia(BREAKPOINTS.isDesktop).matches) return;
+
   const mat = document.querySelector('.cutting-mat');
   const items = gsap.utils.toArray('.draggable-item');
   if (!mat || !items.length) return;

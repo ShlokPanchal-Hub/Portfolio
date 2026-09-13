@@ -101,6 +101,8 @@
   .mask-hint-icon { animation: none; }
 }
 
+.mask-hint-text--touch { display: none; }
+
 .mask-hint-text {
   font-family: var(--font-hand);
   font-size: 1.25rem;
@@ -226,6 +228,13 @@
    RESPONSIVE
    -------------------------------------------------------------------------- */
 @media (max-width: 860px) {
+  /* Draggable is not created at these widths (bio-mask.js), so the mask must
+     give the page its vertical scroll back — and stop promising a drag. */
+  .bio-scratch-mask { touch-action: auto; cursor: pointer; }
+  .mask-hint-text { display: none; }
+  .mask-hint-text--touch { display: block; }
+  .mask-hint-sub { display: none; }
+
   .bio-folder-card {
     grid-template-columns: 1fr;
     padding: var(--space-7) var(--space-5);

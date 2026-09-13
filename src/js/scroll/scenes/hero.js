@@ -29,7 +29,10 @@ function buildEntrance(title) {
   const split = new SplitText(title, {
     type: 'lines',
     linesClass: 'split-line',
-    mask: 'lines'
+    mask: 'lines',
+    // Without this the line masks keep the boundaries measured at load, so
+    // rotating a phone reflows the title inside stale masks and clips it.
+    autoSplit: true
   });
 
   // SplitText's mask wrappers are what we animate against; if the browser

@@ -4,6 +4,8 @@
    ========================================================================== */
 
 .scrapbook-toast {
+  /* Right-anchored with no cap, the longest message ran ~440px wide. */
+  max-width: min(420px, calc(100vw - 2rem));
   position: fixed;
   bottom: var(--space-7);
   right: var(--space-7);
@@ -33,6 +35,8 @@
 
 @media (max-width: 580px) {
   .scrapbook-toast {
+  /* Right-anchored with no cap, the longest message ran ~440px wide. */
+  max-width: min(420px, calc(100vw - 2rem));
     bottom: var(--space-4);
     right: var(--space-4);
     left: var(--space-4);

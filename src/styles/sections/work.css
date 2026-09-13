@@ -606,6 +606,10 @@
   .tag-string-loop { left: var(--space-5); }
   .tag-grommet { left: 22px; }
 
+  /* .wristband-clip is absolutely positioned at top/right var(--space-5); the
+     title starts at the padding edge and used to run under it. */
+  .wristband-title { padding-right: 150px; }
+
   .tag-meta-top {
     padding-left: var(--space-6);
     flex-direction: column;
@@ -632,4 +636,12 @@
   }
 
   .postmark-circle { display: none; }
+}
+
+@media (max-width: 400px) {
+  .pass-flight-info-grid { grid-template-columns: 1fr; }
+
+  /* A nowrap flex row with a mono badge that cannot shrink below its text. */
+  .pass-header { flex-wrap: wrap; gap: var(--space-2); }
+  .wristband-title { padding-right: 0; padding-top: var(--space-6); }
 }
