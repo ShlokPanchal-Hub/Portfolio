@@ -79,6 +79,11 @@
   width: 26px;
   height: 26px;
   min-width: 26px;
+  /* The row is align-items:flex-start, which lined the 26px box up with the
+     TOP of the label instead of the centre of its first line — 2.8px low on
+     every item. Derived from the same font-size/leading the label uses, so it
+     stays correct if either changes. */
+  margin-top: calc((0.98rem * var(--leading-snug) - 26px) / 2);
   border: 2px solid #8c7b64;
   border-radius: var(--radius-md);
   background: var(--paper-card);

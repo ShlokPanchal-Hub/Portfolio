@@ -130,17 +130,24 @@ function boardingPass() {
   });
 
   // The flight-info cells tick in like a departures board.
-  gsap.from('.pass-info-cell', {
-    y: 14,
-    autoAlpha: 0,
-    duration: 0.5,
-    stagger: 0.08,
-    scrollTrigger: {
-      trigger: '.pass-flight-info-grid',
-      start: 'top 85%',
-      toggleActions: 'play none none reverse'
+  // fromTo, not from: a staggered `from` tween re-reads each target's
+  // current value as its END on invalidation, and because immediateRender
+  // already wrote the start value there, every target animated to its own
+  // start and froze. Explicit end values cannot be re-derived.
+  gsap.fromTo('.pass-info-cell',
+    { y: 14, autoAlpha: 0 },
+    {
+      y: 0,
+      autoAlpha: 1,
+      duration: 0.5,
+      stagger: 0.08,
+      scrollTrigger: {
+        trigger: '.pass-flight-info-grid',
+        start: 'top 85%',
+        toggleActions: 'play none none reverse'
+      }
     }
-  });
+  );
 }
 
 /* --------------------------------------------------------------------------
@@ -213,13 +220,20 @@ function wristband() {
       scrollTrigger: { trigger: band, start: 'top 85%' }
     });
 
-    gsap.from(bullets, {
-      x: -20,
-      autoAlpha: 0,
-      duration: 0.5,
-      stagger: 0.12,
-      scrollTrigger: { trigger: band, start: 'top 70%' }
-    });
+    // fromTo, not from: a staggered `from` tween re-reads each target's
+    // current value as its END on invalidation, and because immediateRender
+    // already wrote the start value there, every target animated to its own
+    // start and froze. Explicit end values cannot be re-derived.
+    gsap.fromTo(bullets,
+      { x: -20, autoAlpha: 0 },
+      {
+        x: 0,
+        autoAlpha: 1,
+        duration: 0.5,
+        stagger: 0.12,
+        scrollTrigger: { trigger: band, start: 'top 70%' }
+      }
+    );
   });
 }
 
@@ -234,15 +248,22 @@ function postcards() {
   ScrollTrigger.batch(cards, {
     start: 'top 86%',
     onEnter: (batch) => {
-      gsap.from(batch, {
-        y: 56,
-        rotation: (i) => (i % 2 === 0 ? -2.5 : 2.5),
-        autoAlpha: 0,
-        duration: 0.85,
-        ease: 'power3.out',
-        stagger: { each: 0.14, from: 'edges' },
-        overwrite: true
-      });
+      // fromTo, not from: a staggered `from` tween re-reads each target's
+      // current value as its END on invalidation, and because immediateRender
+      // already wrote the start value there, every target animated to its own
+      // start and froze. Explicit end values cannot be re-derived.
+      gsap.fromTo(batch,
+        { y: 56, rotation: (i) => (i % 2 === 0 ? -2.5 : 2.5), autoAlpha: 0 },
+        {
+          y: 0,
+          rotation: 0,
+          autoAlpha: 1,
+          duration: 0.85,
+          ease: 'power3.out',
+          stagger: { each: 0.14, from: 'edges' },
+          overwrite: true
+        }
+      );
     }
   });
 
