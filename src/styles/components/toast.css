@@ -1,0 +1,44 @@
+/* ==========================================================================
+   TOAST
+   Lives OUTSIDE #smooth-wrapper (fixed positioning).
+   ========================================================================== */
+
+.scrapbook-toast {
+  position: fixed;
+  bottom: var(--space-7);
+  right: var(--space-7);
+  background: var(--ink-800);
+  color: var(--paper);
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 600;
+  box-shadow: 0 15px 30px rgba(16, 13, 11, 0.28);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  z-index: var(--z-toast);
+  transform: translateY(100px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform var(--dur-slow) var(--ease-elastic),
+              opacity var(--dur-slow) var(--ease-smooth);
+}
+
+.scrapbook-toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@media (max-width: 580px) {
+  .scrapbook-toast {
+    bottom: var(--space-4);
+    right: var(--space-4);
+    left: var(--space-4);
+    justify-content: center;
+    text-align: center;
+    font-size: var(--text-sm);
+    padding: var(--space-3) var(--space-5);
+  }
+}

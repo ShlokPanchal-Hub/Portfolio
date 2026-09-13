@@ -1,0 +1,222 @@
+/* ==========================================================================
+   CRAFT PRIMITIVES
+   The physical vocabulary of the site: photo prints, sticky notes, tape,
+   clips, stickers, chips. Each shape is defined once here; the hero and the
+   cutting board only supply position and rotation.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   POLAROID — a photo print with a hand-written caption on the lower margin
+   -------------------------------------------------------------------------- */
+.polaroid {
+  background: var(--paper-card);
+  padding: var(--space-3) var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-polaroid);
+}
+
+.polaroid img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-xs);
+  margin-bottom: var(--space-2);
+  border: 1px solid #ede8de;
+}
+
+.polaroid .caption {
+  font-family: var(--font-hand);
+  font-size: var(--text-md);
+  color: var(--color-ink);
+  text-align: center;
+  line-height: var(--leading-snug);
+}
+
+/* --------------------------------------------------------------------------
+   POST-IT — a square of sticky note stock
+   -------------------------------------------------------------------------- */
+.postit {
+  background: var(--postit-yellow);
+  padding: var(--space-4);
+  border-radius: var(--radius-xs);
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 10px 20px rgba(40, 30, 22, 0.1), 0 2px 6px rgba(40, 30, 22, 0.05);
+}
+
+.postit--pink { background: var(--postit-pink); }
+
+.postit .text,
+.postit ul {
+  font-family: var(--font-hand);
+  font-size: var(--text-md);
+  line-height: var(--leading-snug);
+  color: var(--color-ink-light);
+}
+
+.postit-title {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--color-ink);
+  margin-bottom: var(--space-2);
+  border-bottom: 1.5px dashed rgba(0, 0, 0, 0.15);
+  padding-bottom: var(--space-1);
+}
+
+.postit li {
+  margin-bottom: var(--space-1);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-1);
+}
+
+.postit li::before {
+  content: '✓';
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   WASHI TAPE
+   -------------------------------------------------------------------------- */
+.washi-tape {
+  position: absolute;
+  z-index: var(--z-raised);
+  height: 22px;
+  background: var(--tape);
+  box-shadow: 0 1px 3px rgba(40, 30, 22, 0.08);
+  opacity: 0.85;
+  border-left: 2px dashed rgba(255, 255, 255, 0.6);
+  border-right: 2px dashed rgba(255, 255, 255, 0.6);
+  pointer-events: none;
+}
+
+.tape-top-center {
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+  width: 70px;
+}
+
+.tape-top-right {
+  top: -8px;
+  right: 10px;
+  transform: rotate(25deg);
+  width: 55px;
+}
+
+.tape-pattern-grid {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.03) 0,
+    rgba(0, 0, 0, 0.03) 2px,
+    transparent 0,
+    transparent 4px
+  );
+}
+
+/* --------------------------------------------------------------------------
+   PAPER CLIP
+   -------------------------------------------------------------------------- */
+.paper-clip-svg {
+  position: absolute;
+  top: -14px;
+  right: 20px;
+  width: 22px;
+  height: 40px;
+  z-index: calc(var(--z-raised) + 2);
+  pointer-events: none;
+  filter: drop-shadow(1px 2px 2px rgba(40, 30, 22, 0.18));
+}
+
+/* --------------------------------------------------------------------------
+   STICKER BADGE
+   -------------------------------------------------------------------------- */
+.sticker-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--paper-card);
+  border: 2px solid var(--color-ink);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  box-shadow: 2px 3px 0 var(--color-ink);
+  transition: transform var(--dur-base) var(--ease-elastic);
+}
+
+.sticker-badge:hover {
+  transform: scale(1.08) rotate(-3deg);
+}
+
+.sticker-badge.primary {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary-ink);
+  box-shadow: 2px 3px 0 var(--color-primary);
+}
+
+.sticker-badge--sm {
+  font-size: var(--text-xs);
+  padding: 2px var(--space-2);
+  box-shadow: 1px 2px 0 var(--color-primary);
+}
+
+/* --------------------------------------------------------------------------
+   TECH CHIPS — small monospace capability tags
+   -------------------------------------------------------------------------- */
+.tech-tags-grid,
+.tag-tech-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.tech-tag-chip {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  background: #ece3d3;
+  color: var(--color-ink);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+}
+
+.tag-tech-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background: #ece4d2;
+  color: var(--color-ink);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+}
+
+/* Chips sitting on a dark artefact surface */
+.tag-tech-badge--on-ink {
+  background: var(--surface-ink-raised);
+  color: var(--color-secondary-on-ink);
+  border: 1px solid var(--surface-ink-border);
+}
+
+/* --------------------------------------------------------------------------
+   METRIC — a number that counts up on scroll entry
+   -------------------------------------------------------------------------- */
+.metric {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.tag-bullets .metric,
+.pass-bullets .metric {
+  color: var(--color-primary);
+}
+
+.wristband-bullets .metric {
+  color: var(--color-secondary-on-ink);
+}

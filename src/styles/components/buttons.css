@@ -1,0 +1,137 @@
+/* ==========================================================================
+   BUTTONS & LINK AFFORDANCES
+   Every interactive surface gets hover, active (pressed), and focus states.
+   ========================================================================== */
+
+.btn-scrapbook-primary,
+.btn-copy-email {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--color-primary);
+  color: var(--paper-card);
+  padding: var(--space-4) var(--space-7);
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: var(--text-md);
+  box-shadow: 0 10px 20px -5px rgba(227, 83, 66, 0.4), 0 4px 6px -2px rgba(227, 83, 66, 0.2);
+  transition:
+    background var(--dur-base) var(--ease-smooth),
+    transform var(--dur-base) var(--ease-smooth),
+    box-shadow var(--dur-base) var(--ease-smooth);
+}
+
+.btn-scrapbook-primary:hover,
+.btn-copy-email:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 14px 26px -4px rgba(227, 83, 66, 0.45);
+}
+
+.btn-scrapbook-primary:active,
+.btn-copy-email:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 6px 12px -4px rgba(227, 83, 66, 0.35);
+}
+
+.btn-copy-email {
+  padding: var(--space-4) var(--space-8);
+  font-size: 1.05rem;
+}
+
+.btn-scrapbook-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--paper);
+  color: var(--color-ink);
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: var(--text-md);
+  border: 1px solid rgba(210, 198, 172, 0.9);
+  box-shadow: var(--shadow-paper-sm);
+  transition:
+    background var(--dur-base) var(--ease-smooth),
+    border-color var(--dur-base) var(--ease-smooth),
+    color var(--dur-base) var(--ease-smooth),
+    transform var(--dur-base) var(--ease-smooth);
+}
+
+.btn-scrapbook-secondary:hover {
+  background: var(--color-secondary-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.btn-scrapbook-secondary:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+/* --------------------------------------------------------------------------
+   BOARD CONTROLS
+   -------------------------------------------------------------------------- */
+.board-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--paper);
+  border: 1.5px solid rgba(210, 198, 172, 0.9);
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-ink);
+  box-shadow: var(--shadow-paper-sm);
+  transition:
+    background var(--dur-base) var(--ease-smooth),
+    border-color var(--dur-base) var(--ease-smooth),
+    color var(--dur-base) var(--ease-smooth),
+    transform var(--dur-base) var(--ease-smooth);
+}
+
+.board-btn:hover {
+  background: var(--paper-card);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.board-btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* --------------------------------------------------------------------------
+   SOCIAL / TERTIARY
+   -------------------------------------------------------------------------- */
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--paper-raw);
+  border: 1.5px solid var(--kraft-edge);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  transition:
+    border-color var(--dur-base) var(--ease-smooth),
+    color var(--dur-base) var(--ease-smooth),
+    background var(--dur-base) var(--ease-smooth),
+    transform var(--dur-base) var(--ease-smooth);
+}
+
+.social-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: var(--paper-card);
+  transform: translateY(-2px);
+}
+
+.social-btn:active {
+  transform: translateY(1px) scale(0.985);
+}

@@ -1,0 +1,257 @@
+/* ==========================================================================
+   BIO — the confidential dossier folder
+   ========================================================================== */
+
+.bio-peek-section {
+  padding: var(--section-pad-top) 0 var(--section-pad-bottom);
+  position: relative;
+}
+
+.bio-card-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.bio-folder-card {
+  background: #fffdfa;
+  border: 2px solid var(--kraft-edge);
+  border-radius: var(--radius-xl);
+  padding: var(--space-9);
+  box-shadow: var(--shadow-paper-lg);
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: var(--space-8);
+  align-items: start;
+  position: relative;
+}
+
+.folder-tab {
+  position: absolute;
+  top: -24px;
+  left: var(--space-8);
+  background: var(--kraft);
+  border: 2px solid var(--kraft-edge);
+  border-bottom: none;
+  padding: var(--space-2) var(--space-5) var(--space-2);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  font-family: var(--font-hand);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  box-shadow: 0 -4px 8px rgba(40, 30, 22, 0.05);
+}
+
+/* --------------------------------------------------------------------------
+   PORTRAIT & PEELABLE MASK
+   -------------------------------------------------------------------------- */
+.bio-portrait-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--kraft-tint);
+  border: 2px solid var(--kraft-edge);
+  box-shadow: var(--shadow-polaroid);
+  user-select: none;
+}
+
+.bio-real-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* The mask is a real <button>: draggable for pointer users, and operable by
+   click or keyboard so the reveal is never a dead end. */
+.bio-scratch-mask {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  background: linear-gradient(135deg, var(--kraft) 0%, #d4c1a3 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  text-align: center;
+  cursor: grab;
+  touch-action: none;
+  z-index: var(--z-raised);
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 15px rgba(40, 30, 22, 0.18);
+}
+
+.bio-scratch-mask:active { cursor: grabbing; }
+
+.mask-hint-icon {
+  margin-bottom: var(--space-2);
+  color: var(--color-ink);
+  animation: bounceSlow 2s infinite;
+}
+
+@keyframes bounceSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mask-hint-icon { animation: none; }
+}
+
+.mask-hint-text {
+  font-family: var(--font-hand);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  line-height: var(--leading-snug);
+}
+
+.mask-hint-sub {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-ink-muted);
+  margin-top: var(--space-1);
+}
+
+.bio-revealed-badge {
+  position: absolute;
+  bottom: var(--space-3);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(16, 13, 11, 0.75);
+  backdrop-filter: blur(4px);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-smooth);
+}
+
+.bio-portrait-container.revealed .bio-revealed-badge { opacity: 1; }
+
+/* --------------------------------------------------------------------------
+   CONTENT SIDE
+   -------------------------------------------------------------------------- */
+.bio-content-side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.bio-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1.5px dashed var(--kraft-edge);
+  padding-bottom: var(--space-3);
+}
+
+.bio-heading {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  color: var(--color-ink);
+}
+
+.bio-location-chip {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  background: var(--kraft-tint);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-md);
+  color: #786e5b;
+}
+
+.bio-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--color-primary);
+  line-height: var(--leading-snug);
+  margin-top: -4px;
+}
+
+.bio-body {
+  font-size: var(--text-md);
+  color: var(--color-ink-light);
+  line-height: var(--leading-relaxed);
+  max-width: var(--measure);
+}
+
+.bio-grid-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+
+.bio-pillar-box {
+  background: #faf6ee;
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  border: 1px solid var(--kraft);
+}
+
+.bio-pillar-title {
+  font-family: var(--font-hand);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.bio-pillar-box ul {
+  font-size: 0.88rem;
+  color: var(--color-ink-light);
+  line-height: var(--leading-normal);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.bio-pillar-box li::before {
+  content: '• ';
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 860px) {
+  .bio-folder-card {
+    grid-template-columns: 1fr;
+    padding: var(--space-7) var(--space-5);
+    gap: var(--space-7);
+  }
+
+  .bio-portrait-container {
+    max-width: 260px;
+    margin: 0 auto;
+  }
+
+  .bio-grid-columns { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 580px) {
+  .bio-folder-card {
+    padding: var(--space-6) var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+
+  .folder-tab {
+    font-size: 0.85rem;
+    left: var(--space-3);
+    top: -18px;
+    padding: var(--space-1) var(--space-3);
+  }
+
+  .bio-heading { font-size: 1.6rem; }
+}

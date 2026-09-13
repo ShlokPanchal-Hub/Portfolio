@@ -1,0 +1,248 @@
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+
+.hero-section {
+  position: relative;
+  min-height: 100dvh;
+  padding: calc(var(--space-12) + var(--space-2)) 0 var(--space-11);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+}
+
+.hero-main-stack {
+  text-align: center;
+  position: relative;
+  z-index: var(--z-raised);
+  max-width: 720px;
+  margin: 0 auto;
+  padding-inline: var(--space-5);
+}
+
+.hero-supertitle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--paper);
+  border: 1px solid rgba(210, 198, 172, 0.8);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-5);
+  box-shadow: var(--shadow-paper-sm);
+  transform: rotate(-1.5deg);
+  transition: transform var(--dur-slow) var(--ease-elastic);
+}
+
+.hero-supertitle:hover {
+  transform: rotate(0deg) scale(1.04);
+}
+
+.hero-title {
+  font-size: var(--text-4xl);
+  font-weight: 800;
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.06;
+  color: var(--color-ink);
+  margin-bottom: var(--space-5);
+}
+
+/* SplitText masks each line in its own clipping box so lines can slide up
+   from behind their own baseline rather than simply fading in. */
+.hero-title .split-line-mask {
+  overflow: hidden;
+  display: block;
+  padding-bottom: 0.08em;
+}
+
+.hero-title .serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-primary);
+  position: relative;
+  display: inline-block;
+}
+
+.hero-title .serif-italic::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 12' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,8 Q25,2 50,7 T100,6' fill='none' stroke='%23e35342' stroke-width='4' stroke-linecap='round' opacity='0.75'/%3E%3C/svg%3E") no-repeat center;
+  background-size: 100% 100%;
+}
+
+.hero-subtitle {
+  font-size: var(--text-lg);
+  color: var(--color-ink-light);
+  max-width: var(--measure);
+  margin: 0 auto var(--space-7);
+  line-height: var(--leading-normal);
+}
+
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   SCROLL CUE
+   -------------------------------------------------------------------------- */
+.scroll-cue {
+  position: absolute;
+  bottom: var(--space-7);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-hand);
+  font-size: 1.05rem;
+  color: var(--color-ink-muted);
+  pointer-events: none;
+  z-index: var(--z-raised);
+}
+
+.scroll-cue svg {
+  width: 20px;
+  height: 28px;
+  color: var(--color-primary);
+}
+
+/* --------------------------------------------------------------------------
+   FLOATING SCRAPBOOK CARDS
+   Each carries its own data-speed so ScrollSmoother separates them in depth.
+   -------------------------------------------------------------------------- */
+.hero-floating-elements {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1280px;
+  padding-inline: var(--space-5);
+  pointer-events: none;
+  z-index: var(--z-float);
+}
+
+.float-card {
+  position: absolute;
+  pointer-events: auto;
+  transition: transform var(--dur-base) var(--ease-smooth),
+              box-shadow var(--dur-base) var(--ease-smooth);
+  cursor: grab;
+  user-select: none;
+}
+
+.float-card:active { cursor: grabbing; }
+
+.float-card:hover {
+  transform: scale(1.05) rotate(0deg);
+  box-shadow: var(--shadow-lift);
+  z-index: var(--z-drag);
+}
+
+.card-polaroid-faiss {
+  top: 14%;
+  left: var(--space-5);
+  width: clamp(160px, 16vw, 210px);
+  rotate: -6deg;
+}
+
+.card-polaroid-rl {
+  top: 16%;
+  right: var(--space-5);
+  width: clamp(160px, 16vw, 215px);
+  rotate: 5deg;
+}
+
+.card-polaroid-faiss img,
+.card-polaroid-rl img {
+  height: clamp(110px, 12vw, 138px);
+}
+
+.card-polaroid-faiss .caption,
+.card-polaroid-rl .caption {
+  font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+}
+
+.card-postit-beliefs {
+  bottom: 5%;
+  left: var(--space-6);
+  width: clamp(170px, 17vw, 225px);
+  padding: var(--space-4) var(--space-3);
+  rotate: 3deg;
+}
+
+.card-postit-beliefs .postit-title {
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+}
+
+.card-postit-beliefs ul {
+  font-size: clamp(0.85rem, 1vw, 0.96rem);
+}
+
+.card-stamp-tech {
+  bottom: 6%;
+  right: var(--space-6);
+  width: clamp(165px, 16vw, 215px);
+  background: var(--paper-warm);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-paper);
+  border: 2px dashed #d5c8b5;
+  rotate: -3.5deg;
+}
+
+.card-stamp-tech .badge-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.card-stamp-tech .tech-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-ink-muted);
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .card-polaroid-faiss { left: var(--space-2); top: 10%; }
+  .card-polaroid-rl { right: var(--space-2); top: 12%; }
+  .card-postit-beliefs { left: var(--space-2); bottom: 3%; }
+  .card-stamp-tech { right: var(--space-2); bottom: 3%; }
+}
+
+@media (max-width: 860px) {
+  .hero-floating-elements { display: none; }
+  .scroll-cue { display: none; }
+
+  .hero-section {
+    padding: var(--space-12) 0 var(--space-9);
+    min-height: auto;
+  }
+
+  .hero-main-stack {
+    max-width: 100%;
+    padding-inline: var(--space-4);
+  }
+}

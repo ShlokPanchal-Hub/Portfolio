@@ -1,0 +1,243 @@
+/* ==========================================================================
+   CUTTING BOARD — throwable workbench
+   ========================================================================== */
+
+.cutting-board-section {
+  padding: var(--section-pad-top) 0 var(--section-pad-bottom);
+  position: relative;
+}
+
+.cutting-board-wrapper {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Self-healing mat */
+.cutting-mat {
+  position: relative;
+  width: 100%;
+  height: 640px;
+  background-color: var(--mat-surface);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.28) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.28) 2px, transparent 2px);
+  background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+  background-position: -1px -1px;
+  border-radius: var(--radius-xl);
+  border: 12px solid var(--mat-edge);
+  box-shadow:
+    inset 0 0 40px rgba(0, 0, 0, 0.6),
+    0 25px 50px -12px rgba(16, 13, 11, 0.35);
+  overflow: hidden;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.mat-ruler-top {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-8);
+  right: var(--space-8);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.mat-ruler-left {
+  position: absolute;
+  top: var(--space-8);
+  bottom: var(--space-8);
+  left: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.mat-brand-stamp {
+  position: absolute;
+  bottom: var(--space-5);
+  right: var(--space-6);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.coffee-stain {
+  position: absolute;
+  top: 320px;
+  left: 310px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 4px solid rgba(80, 50, 20, 0.2);
+  filter: blur(0.5px);
+  pointer-events: none;
+  box-shadow: inset 0 0 8px rgba(80, 50, 20, 0.12);
+}
+
+/* --------------------------------------------------------------------------
+   DRAGGABLE ITEMS
+   No transition on transform — it would fight Draggable's per-frame writes.
+   `will-change` is applied on drag start and removed on release rather than
+   left on permanently; a always-on compositor hint on seven elements costs
+   memory for no benefit while the section is idle.
+   -------------------------------------------------------------------------- */
+.draggable-item {
+  position: absolute;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  z-index: var(--z-drag);
+  transition: box-shadow var(--dur-fast) var(--ease-smooth);
+}
+
+.draggable-item.is-dragging {
+  cursor: grabbing;
+  will-change: transform;
+  box-shadow: var(--shadow-drag);
+}
+
+/* Photo prints on the mat need a heavier drop than on paper */
+.draggable-item.polaroid {
+  box-shadow: 0 12px 24px rgba(16, 13, 11, 0.3);
+}
+
+.draggable-item.postit {
+  box-shadow: 0 10px 20px rgba(16, 13, 11, 0.25);
+}
+
+/* Positions only — every visual property comes from .polaroid / .postit */
+.drag-item-faiss { top: 50px; left: 50px; width: 210px; }
+.drag-item-rl { top: 50px; right: 50px; width: 215px; }
+
+.drag-item-faiss img,
+.drag-item-rl img { height: 132px; }
+
+.drag-item-postit-1 { bottom: 60px; left: 70px; width: 190px; }
+.drag-item-postit-2 { bottom: 60px; right: 70px; width: 200px; }
+
+.drag-item-postit-1 .text { color: #332d00; }
+.drag-item-postit-2 .text { color: #4a044e; }
+
+.drag-item-diagram {
+  top: 140px;
+  left: 360px;
+  width: 260px;
+  background: var(--paper-warm);
+  border: 2px dashed #b8aa93;
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  box-shadow: 0 12px 24px rgba(16, 13, 11, 0.3);
+}
+
+.drag-item-diagram .title {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  color: #8c7b64;
+  margin-bottom: var(--space-2);
+}
+
+.drag-item-diagram ul {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-ink-light);
+  line-height: var(--leading-normal);
+}
+
+.drag-item-diagram li {
+  position: relative;
+  padding-left: var(--space-4);
+}
+
+.drag-item-diagram li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+}
+
+.drag-item-sticker-1 { bottom: 80px; left: 340px; }
+.drag-item-sticker-2 { top: 60px; left: 320px; }
+
+/* --------------------------------------------------------------------------
+   CONTROLS
+   -------------------------------------------------------------------------- */
+.cutting-board-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.board-hint {
+  text-align: center;
+  margin-top: var(--space-3);
+  font-family: var(--font-hand);
+  font-size: 1.05rem;
+  color: var(--color-ink-muted);
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 860px) {
+  .cutting-mat { height: 520px; }
+
+  .drag-item-faiss { width: 175px; left: var(--space-5); top: var(--space-8); }
+  .drag-item-rl { width: 175px; right: var(--space-5); top: var(--space-8); }
+
+  .drag-item-diagram {
+    width: 220px;
+    left: 50%;
+    margin-left: -110px;
+    top: 130px;
+  }
+
+  .drag-item-postit-1 { width: 160px; left: var(--space-8); bottom: var(--space-8); }
+  .drag-item-postit-2 { width: 160px; right: var(--space-8); bottom: var(--space-8); }
+}
+
+@media (max-width: 480px) {
+  .cutting-mat { height: 480px; border-width: 8px; }
+
+  .drag-item-faiss { width: 145px; left: var(--space-3); top: var(--space-5); }
+  .drag-item-rl { width: 145px; right: var(--space-3); top: var(--space-5); }
+
+  .drag-item-diagram { width: 180px; margin-left: -90px; top: 120px; }
+
+  .drag-item-postit-1 {
+    width: 135px;
+    left: var(--space-3);
+    bottom: var(--space-7);
+    padding: var(--space-3);
+  }
+
+  .drag-item-postit-2 {
+    width: 135px;
+    right: var(--space-3);
+    bottom: var(--space-7);
+    padding: var(--space-3);
+  }
+
+  .drag-item-sticker-1,
+  .drag-item-sticker-2 { display: none; }
+}
