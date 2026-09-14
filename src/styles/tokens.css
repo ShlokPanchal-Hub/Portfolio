@@ -1,7 +1,9 @@
 /* ==========================================================================
    DESIGN TOKENS
-   Every color, space, and elevation value in the site resolves here.
-   Nothing below this file should contain a raw hex or a magic pixel value.
+   Every color, space, and elevation value that is reused or derived from an
+   accent resolves here. Purely local texture — the cutting-mat grid lines, the
+   washi-tape highlights, a one-off inset shadow — is still written inline at
+   the point of use, where it is easier to read than a token would be.
    ========================================================================== */
 
 :root {
@@ -9,7 +11,6 @@
      PAPER — the warm canvas the whole site is printed on
      ------------------------------------------------------------------ */
   --paper-canvas: #f7f4ed;
-  --paper-canvas-alt: #f0ece1;
   --paper: #faf8f5;
   --paper-warm: #fcfaf6;
   --paper-card: #ffffff;
@@ -17,7 +18,6 @@
   --paper-aged: #fbf9f4;
 
   --kraft: #ebdcc9;
-  --kraft-dark: #ddcaa8;
   --kraft-edge: #dcd4c3;
   --kraft-tint: #f1ebd9;
   --paper-dot-1: #d6cebe;
@@ -28,22 +28,18 @@
      The dark artefact surfaces are drawn from the deep end of this ramp so
      they read as the night side of the same paper, not a foreign card.
      ------------------------------------------------------------------ */
-  --ink-950: #100d0b;
-  --ink-900: #171311;
   --ink-800: #1c1917;
-  --ink-700: #292320;
   --ink-600: #3b342e;
   --ink-500: #574e45;
-  --ink-400: #78716c;
+  --ink-400: #6d655f;
   --ink-300: #a8a29e;
   --ink-200: #cdc3b5;
-  --ink-100: #e4dbcc;
 
   /* Semantic ink aliases */
   --color-ink: var(--ink-800);
   --color-ink-light: #44403c;
   --color-ink-muted: var(--ink-400);
-  --color-ink-faint: var(--ink-300);
+  --color-ink-faint: #736b64;
 
   /* ------------------------------------------------------------------
      DARK ARTEFACT SURFACES — warm, not slate
@@ -54,12 +50,11 @@
   --surface-ink-border: #3a312b;
   --on-ink: #f2ece2;
   --on-ink-muted: #b6a898;
-  --on-ink-faint: #8a7d70;
 
   /* ------------------------------------------------------------------
      ACCENT — one primary, one secondary. Nothing else.
      ------------------------------------------------------------------ */
-  --color-primary: #e35342;
+  --color-primary: #d4402e;
   --color-primary-dark: #c23828;
   --color-primary-light: #fbe9e7;
   --color-primary-wash: #fef2f2;
@@ -74,12 +69,9 @@
   /* Sticky note paper stock */
   --postit-yellow: #fef08a;
   --postit-pink: #fbcfe8;
-  --postit-green: #bbf7d0;
-  --postit-blue: #bae6fd;
 
   /* Washi tape */
   --tape: rgba(229, 219, 196, 0.72);
-  --tape-stripe: rgba(210, 198, 172, 0.85);
 
   /* Cutting mat */
   --mat-surface: #1e392a;
@@ -87,6 +79,10 @@
 
   /* Status */
   --color-live: #10b981;
+  /* The pulse halo is the live dot's own colour; it was hand-written as
+     rgba(16,185,129,…) in four places that had to be kept in sync by hand. */
+  --live-halo: rgba(16, 185, 129, 0.7);
+  --live-halo-fade: rgba(16, 185, 129, 0);
 
   /* ------------------------------------------------------------------
      TYPE
@@ -103,7 +99,6 @@
   --text-base: 0.95rem;
   --text-md: 1.05rem;
   --text-lg: clamp(1.05rem, 1.8vw, 1.25rem);
-  --text-xl: clamp(1.35rem, 2.2vw, 1.6rem);
   --text-2xl: clamp(1.6rem, 3vw, 1.95rem);
   /* Floors sized for a 320px phone: the old 2.2/2.6rem floors pushed the hero
      headline to four lines and section titles to three. The vw terms and the
@@ -168,6 +163,16 @@
   --shadow-lift: 0 24px 48px -12px rgba(40, 30, 22, 0.2), 0 12px 24px -8px rgba(40, 30, 22, 0.12);
   --shadow-polaroid: 0 15px 30px rgba(40, 30, 22, 0.12), 0 4px 10px rgba(40, 30, 22, 0.06);
   --shadow-ink: 0 20px 40px -12px rgba(16, 13, 11, 0.45);
+  /* Accent-tinted CTA elevation. Derived from --color-primary, so it has to
+     move whenever the accent does; three hand-written rgba(227,83,66,…)
+     values did not. */
+  --shadow-cta: 0 10px 20px -5px rgba(212, 64, 46, 0.4), 0 4px 6px -2px rgba(212, 64, 46, 0.2);
+  --shadow-cta-hover: 0 14px 26px -4px rgba(212, 64, 46, 0.45);
+  --shadow-cta-press: 0 6px 12px -4px rgba(212, 64, 46, 0.35);
+  /* The frosted header pills — one background and one shadow, repeated 3x. */
+  --glass-pill: rgba(250, 248, 245, 0.9);
+  --glass-pill-strong: rgba(250, 248, 245, 0.92);
+  --shadow-glass: 0 4px 15px rgba(40, 30, 22, 0.05);
   --shadow-drag: 0 25px 50px rgba(16, 13, 11, 0.45), 0 10px 20px rgba(16, 13, 11, 0.25);
 
   /* ------------------------------------------------------------------
@@ -175,7 +180,6 @@
      ------------------------------------------------------------------ */
   --z-base: 1;
   --z-raised: 10;
-  --z-sticky: 20;
   --z-float: 40;
   --z-drag: 60;
   --z-drag-active: 80;
@@ -197,7 +201,6 @@
 
   /* ------------------------------------------------------------------
      CRAFT & ARTEFACT VOCABULARY TOKENS
-     Zero raw hex or arbitrary rgba below this file.
      ------------------------------------------------------------------ */
   --border-craft: #d4c8b5;
   --border-card: #ede8de;
@@ -211,9 +214,6 @@
   --tag-string: #8c7b64;
 
   /* Postmarks & stamps */
-  --stamp-academic-bg: var(--kraft-tint);
-  --stamp-academic-border: var(--ink-500);
-  --stamp-academic-color: var(--ink-600);
   --postmark-border: rgba(194, 56, 40, 0.4);
   --postmark-color: rgba(194, 56, 40, 0.65);
   --postmark-academic-border: rgba(87, 78, 69, 0.4);
@@ -221,20 +221,20 @@
 
   /* Academic & education cards */
   --edu-item-bg: #f5eedf;
-  --edu-item-date: #8c7b64;
+  --edu-item-date: #7a6a55;
 
   /* Tech tags and chips */
   --tech-chip-bg: #ece3d3;
   --tech-badge-bg: #ece4d2;
   --tech-diagram-border: #b8aa93;
-  --tech-diagram-title: #8c7b64;
+  --tech-diagram-title: #7a6a55;
 
   /* Bio dossier */
   --dossier-card-bg: #fffdfa;
   --dossier-pillar-bg: #faf6ee;
-  --dossier-location-color: #786e5b;
+  --dossier-location-color: #6b6355;
   --dossier-mask-grad-end: #d4c1a3;
-  --brand-badge-color: #736b5e;
+  --brand-badge-color: #6b6355;
 
   /* Checklist & sketch */
   --sketch-box-bg: #faf7f0;
@@ -255,7 +255,6 @@
 
   /* Safe area insets for mobile notched / dynamic island devices */
   --sat: env(safe-area-inset-top, 0px);
-  --sab: env(safe-area-inset-bottom, 0px);
   --sal: env(safe-area-inset-left, 0px);
   --sar: env(safe-area-inset-right, 0px);
 

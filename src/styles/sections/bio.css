@@ -103,6 +103,9 @@
 
 .mask-hint-text--touch { display: none; }
 
+/* The section subtitle promised a drag too. Same pointer switch as the mask. */
+.subtitle-touch { display: none; }
+
 .mask-hint-text {
   font-family: var(--font-hand);
   font-size: 1.25rem;
@@ -173,7 +176,7 @@
   font-family: var(--font-serif);
   font-style: italic;
   font-size: 1.3rem;
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
   line-height: var(--leading-snug);
   margin-top: -4px;
 }
@@ -187,7 +190,10 @@
 
 .bio-grid-columns {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* auto-fit rather than a fixed 1fr 1fr: three pillars sit 3-up on the
+     desktop card and collapse to one column on a phone without needing a
+     breakpoint of their own. */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: var(--space-5);
 }
 
@@ -196,6 +202,13 @@
   border-radius: var(--radius-md);
   padding: var(--space-4);
   border: 1px solid var(--kraft);
+}
+
+/* Three pillars in a two-column grid leave the third orphaned beside an empty
+   cell. The principles are a different kind of statement from the two interest
+   lists anyway, so it closes the card as a full-width band instead. */
+.bio-pillar-box--wide {
+  grid-column: 1 / -1;
 }
 
 .bio-pillar-title {
@@ -228,12 +241,6 @@
    RESPONSIVE
    -------------------------------------------------------------------------- */
 @media (max-width: 860px) {
-  /* Draggable is not created at these widths (bio-mask.js), so the mask must
-     give the page its vertical scroll back — and stop promising a drag. */
-  .bio-scratch-mask { touch-action: auto; cursor: pointer; }
-  .mask-hint-text { display: none; }
-  .mask-hint-text--touch { display: block; }
-  .mask-hint-sub { display: none; }
 
   .bio-folder-card {
     grid-template-columns: 1fr;
@@ -246,7 +253,6 @@
     margin: 0 auto;
   }
 
-  .bio-grid-columns { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 580px) {
@@ -263,4 +269,17 @@
   }
 
   .bio-heading { font-size: 1.6rem; }
+}
+
+/* Keyed to the pointer, matching the gate in bio-mask.js: without a fine
+   pointer no Draggable is created, so the mask must hand its vertical scroll
+   back and stop promising a drag it will not honour. A landscape phone is
+   wider than 860px and still belongs here. */
+@media (hover: none), (pointer: coarse) {
+  .subtitle-pointer { display: none; }
+  .subtitle-touch { display: inline; }
+  .bio-scratch-mask { touch-action: auto; cursor: pointer; }
+  .mask-hint-text { display: none; }
+  .mask-hint-text--touch { display: block; }
+  .mask-hint-sub { display: none; }
 }

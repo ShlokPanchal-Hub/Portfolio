@@ -174,7 +174,7 @@
 }
 
 .sketch-progress-pill.is-complete {
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
   border-color: var(--color-primary);
 }
 

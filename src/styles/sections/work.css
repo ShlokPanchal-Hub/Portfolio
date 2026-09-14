@@ -522,7 +522,7 @@
 .postcard-subtitle {
   font-family: var(--font-hand);
   font-size: 1.15rem;
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
   font-weight: 700;
   margin-bottom: var(--space-4);
 }
@@ -565,6 +565,42 @@
   color: var(--edu-item-date);
   margin-top: 2px;
   font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------------------------
+   MORE WORK — the one forward destination on the page
+   -------------------------------------------------------------------------- */
+.work-more {
+  max-width: 1060px;
+  margin: var(--space-9) auto 0;
+  padding-top: var(--space-7);
+  border-top: 2px dashed var(--border-dashed);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.work-more-note {
+  font-size: var(--text-base);
+  color: var(--color-ink-light);
+  line-height: var(--leading-normal);
+  max-width: var(--measure-narrow);
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .work-more {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .work-more .btn-scrapbook-secondary {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* --------------------------------------------------------------------------

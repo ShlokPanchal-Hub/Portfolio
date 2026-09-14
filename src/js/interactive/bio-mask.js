@@ -54,10 +54,12 @@ export function initBioMask() {
   });
 
   // Dragging needs `touch-action: none`, which turns the whole portrait into a
-  // dead zone for vertical page scrolling on a phone. The click/keyboard route
-  // above already reveals the photo, so touch widths keep the scroll instead.
+  // dead zone for vertical page scrolling. The click/keyboard route above
+  // already reveals the photo, so anything without a fine pointer keeps its
+  // scroll instead — including a landscape phone, which is wide enough to pass
+  // a width test while still being touch-only.
   if (prefersReducedMotion) return;
-  if (!window.matchMedia(BREAKPOINTS.isDesktop).matches) return;
+  if (!window.matchMedia(BREAKPOINTS.finePointer).matches) return;
 
   const getBounds = () => {
     const w = container.clientWidth || 260;

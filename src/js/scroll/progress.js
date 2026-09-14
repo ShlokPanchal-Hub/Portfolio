@@ -7,8 +7,13 @@ import { gsap, ScrollTrigger, prefersReducedMotion } from '../motion.js';
 
 const RAIL_HEIGHT = 400;
 
+/**
+ * Reading position is information, not decoration, so this runs for
+ * reduced-motion visitors too. What they lose is the 0.3s scrub smoothing on
+ * the fill, not the indicator itself — the rail still tracks scroll, it just
+ * snaps to the true value each update instead of easing toward it.
+ */
 export function initProgressRail(sections) {
-  if (prefersReducedMotion) return;
 
   // 1. Build desktop vertical rail
   const rail = buildRail(sections.length);
@@ -48,7 +53,8 @@ export function initProgressRail(sections) {
   ScrollTrigger.create({
     start: 0,
     end: 'max',
-    scrub: 0.3,
+    // Smoothing is the only part of this that is motion for its own sake.
+    scrub: prefersReducedMotion ? false : 0.3,
     onUpdate: (self) => {
       gsap.set(fill, { strokeDashoffset: length * (1 - self.progress) });
       if (label) label.textContent = `${Math.round(self.progress * 100)}%`;

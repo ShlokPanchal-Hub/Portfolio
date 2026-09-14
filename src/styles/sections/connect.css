@@ -96,7 +96,7 @@
 }
 
 .footer-meta-links a:hover {
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
   border-bottom-color: var(--color-primary);
 }
 
