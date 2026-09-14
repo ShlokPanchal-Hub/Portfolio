@@ -17,11 +17,19 @@
   <meta property="og:description" content="An interactive scrapbook portfolio: CLIP and FAISS visual search, PPO + GAIL reinforcement learning agents, and full-stack engineering.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://portfolio.shlokp.workers.dev/">
-  <meta property="og:image" content="https://portfolio.shlokp.workers.dev/assets/images/visual_search.jpg">
+  <!-- A dedicated 1200x630 JPEG, not one of the page WebPs: the in-page images are
+       WebP for weight, but LinkedIn's scraper does not render WebP cards reliably,
+       and 900x672 is the wrong ratio for summary_large_image anyway. Only ever
+       fetched by social scrapers, so its weight costs real visitors nothing. -->
+  <meta property="og:image" content="https://portfolio.shlokp.workers.dev/assets/images/og-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Shlok Panchal — Data Scientist and AI/ML Engineer portfolio">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Shlok Panchal — Data Scientist & AI/ML Engineer">
   <meta name="twitter:description" content="An interactive scrapbook portfolio: CLIP and FAISS visual search, PPO + GAIL reinforcement learning agents, and full-stack engineering.">
-  <meta name="twitter:image" content="https://portfolio.shlokp.workers.dev/assets/images/visual_search.jpg">
+  <meta name="twitter:image" content="https://portfolio.shlokp.workers.dev/assets/images/og-card.jpg">
+  <meta name="twitter:image:alt" content="Shlok Panchal — Data Scientist and AI/ML Engineer portfolio">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,7 +42,7 @@
     "name": "Shlok Panchal",
     "jobTitle": "Data Scientist & Full-Stack AI Engineer",
     "url": "https://portfolio.shlokp.workers.dev/",
-    "image": "https://portfolio.shlokp.workers.dev/assets/images/shlok.jpg",
+    "image": "https://portfolio.shlokp.workers.dev/assets/images/shlok.webp",
     "email": "mailto:shlokpanchal2@gmail.com",
     "telephone": "+91-8928149299",
     "address": {
@@ -77,8 +85,8 @@
   <header class="site-header">
     <div class="header-inner container">
       <a href="#hero" class="site-brand">
-        <img src="/assets/images/shlok.jpg" alt="Portrait of Shlok Panchal" class="brand-avatar"
-             width="669" height="837" decoding="async">
+        <img src="/assets/images/shlok.webp" alt="Portrait of Shlok Panchal" class="brand-avatar"
+             width="560" height="701" decoding="async">
         <span class="brand-name">Shlok Panchal</span>
         <span class="brand-badge">AI / ML</span>
       </a>
@@ -153,13 +161,13 @@
           <div class="hero-floating-elements" aria-hidden="true">
             <div class="float-card polaroid card-polaroid-faiss" data-speed="0.88">
               <div class="washi-tape tape-top-center tape-pattern-grid"></div>
-              <img src="/assets/images/visual_search.jpg" alt="" width="1200" height="896" loading="lazy" decoding="async">
+              <img src="/assets/images/visual_search.webp" alt="" width="900" height="672" loading="lazy" decoding="async">
               <div class="caption">FAISS IVF • 600K images</div>
             </div>
 
             <div class="float-card polaroid card-polaroid-rl" data-speed="1.12">
               <div class="washi-tape tape-top-center"></div>
-              <img src="/assets/images/smartpark_rl.jpg" alt="" width="1200" height="896" loading="lazy" decoding="async">
+              <img src="/assets/images/smartpark_rl.webp" alt="" width="900" height="672" loading="lazy" decoding="async">
               <div class="caption">PPO + GAIL Agent</div>
             </div>
 
@@ -286,8 +294,8 @@
 
                 <div class="tag-visual-card">
                   <div class="washi-tape tape-top-center" aria-hidden="true"></div>
-                  <img src="/assets/images/visual_search.jpg" alt="Architecture diagram of the CLIP and FAISS visual search pipeline"
-                       width="1200" height="896" loading="lazy" decoding="async">
+                  <img src="/assets/images/visual_search.webp" alt="Architecture diagram of the CLIP and FAISS visual search pipeline"
+                       width="900" height="672" loading="lazy" decoding="async">
                   <div class="tag-visual-caption">Multimodal CLIP &amp; FAISS clustering pipeline</div>
                 </div>
               </article>
@@ -356,8 +364,8 @@
                 <div class="pass-tear-stub">
                   <div>
                     <div class="stub-qr-box">
-                      <img src="/assets/images/enterprise_search.jpg" alt="Screens from the enterprise image search Android app"
-                           width="1200" height="896" loading="lazy" decoding="async">
+                      <img src="/assets/images/enterprise_search.webp" alt="Screens from the enterprise image search Android app"
+                           width="900" height="672" loading="lazy" decoding="async">
                       <div class="stub-caption">Flutter + ASP.NET Core 8</div>
                     </div>
                     <div class="stub-meta">
@@ -407,8 +415,8 @@
                 </div>
 
                 <div class="wristband-preview">
-                  <img src="/assets/images/smartpark_rl.jpg" alt="Autonomous parking agent training inside the Unity simulation"
-                       width="1200" height="896" loading="lazy" decoding="async">
+                  <img src="/assets/images/smartpark_rl.webp" alt="Autonomous parking agent training inside the Unity simulation"
+                       width="900" height="672" loading="lazy" decoding="async">
                 </div>
               </article>
 
@@ -508,15 +516,15 @@
 
                 <div class="draggable-item polaroid drag-item-faiss">
                   <div class="washi-tape tape-top-center" aria-hidden="true"></div>
-                  <img src="/assets/images/visual_search.jpg" alt="CLIP and FAISS visual search results"
-                       width="1200" height="896" loading="lazy" decoding="async">
+                  <img src="/assets/images/visual_search.webp" alt="CLIP and FAISS visual search results"
+                       width="900" height="672" loading="lazy" decoding="async">
                   <div class="caption">CLIP ViT-B/32 • 600K vector index</div>
                 </div>
 
                 <div class="draggable-item polaroid drag-item-rl">
                   <div class="washi-tape tape-top-center tape-pattern-grid" aria-hidden="true"></div>
-                  <img src="/assets/images/smartpark_rl.jpg" alt="SmartPark reinforcement learning agent"
-                       width="1200" height="896" loading="lazy" decoding="async">
+                  <img src="/assets/images/smartpark_rl.webp" alt="SmartPark reinforcement learning agent"
+                       width="900" height="672" loading="lazy" decoding="async">
                   <div class="caption">PPO + GAIL parking simulation</div>
                 </div>
 
@@ -581,8 +589,8 @@
                 <div class="folder-tab">CONFIDENTIAL DOSSIER // SHLOK PANCHAL</div>
 
                 <div class="bio-portrait-container" id="bioPortraitContainer">
-                  <img src="/assets/images/shlok.jpg" alt="Shlok Panchal" class="bio-real-photo"
-                       width="669" height="837" loading="lazy" decoding="async">
+                  <img src="/assets/images/shlok.webp" alt="Shlok Panchal" class="bio-real-photo"
+                       width="560" height="701" loading="lazy" decoding="async">
 
                   <button type="button" class="bio-scratch-mask" id="bioScratchMask"
                           aria-expanded="false" aria-controls="bioPortraitContainer"
