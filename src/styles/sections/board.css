@@ -109,6 +109,19 @@
   outline-offset: var(--focus-offset);
 }
 
+/* Draggable writes `touch-action: none` INLINE for type:'x,y', which stops the
+   browser generating any scroll from a touch that starts on an item. The seven
+   items cover most of the mat, so on a phone the whole board became a dead
+   zone you could not scroll past. `!important` is the only thing that beats a
+   library's inline style.
+   pan-y hands vertical gestures back to the page and still routes horizontal
+   ones to Draggable — and once a drag has started, both axes move freely, so
+   the interaction survives. Scatter/Organize and the arrow-key nudge move
+   items on both axes regardless. */
+@media (hover: none) and (pointer: coarse) {
+  .draggable-item { touch-action: pan-y !important; }
+}
+
 .draggable-item.is-dragging {
   cursor: grabbing;
   will-change: transform;
@@ -256,23 +269,35 @@
   }
 }
 
+/* Below this width the mat is too narrow to hold the centred diagram BESIDE
+   the two polaroids — 175px + 2x140px exceeds the inner width, so the diagram
+   sat on top of them and hid their captions. Above it there is room side by
+   side and the scattered look works.
+   So on phones the mat gets three stacked bands instead: photos, diagram,
+   notes. Taller, but every item is readable, which is the point of showing
+   the board at all. The stickers still ride ON the items — that overlap is
+   the whole idea of a sticker. */
 @media (max-width: 540px) {
   .cutting-mat {
-    min-height: 420px;
+    min-height: 560px;
   }
 
-  .drag-item-faiss { top: 5%; left: 3%; width: 140px; }
-  .drag-item-rl { top: 5%; right: 3%; width: 140px; }
+  /* Percentages of the mat, not fixed px: at 320px two 140px polaroids plus
+     their 4deg rotation render wider than the 284px mat and ran into each
+     other. min() keeps the comfortable size on a 390-540px phone and lets the
+     pair shrink to fit below that, without another breakpoint. */
+  .drag-item-faiss { top: 2%; left: 3%; width: min(140px, 41%); }
+  .drag-item-rl { top: 2%; right: 3%; width: min(140px, 41%); }
 
   .drag-item-faiss img,
   .drag-item-rl img { height: 86px; }
 
-  .drag-item-postit-1 { bottom: 6%; left: 4%; width: 130px; }
-  .drag-item-postit-2 { bottom: 6%; right: 4%; width: 130px; }
+  .drag-item-postit-1 { bottom: 3%; left: 4%; width: min(130px, 40%); }
+  .drag-item-postit-2 { bottom: 3%; right: 4%; width: min(130px, 40%); }
 
   .drag-item-diagram {
-    top: 28%;
-    width: 175px;
+    top: 34%;
+    width: min(175px, 62%);
     padding: var(--space-2) var(--space-3);
   }
 
@@ -280,8 +305,11 @@
     font-size: 0.65rem;
   }
 
-  .drag-item-sticker-1 { bottom: 10%; left: 48%; }
-  .drag-item-sticker-2 { top: 6%; left: 48%; }
+  /* A sticker should decorate the thing it sits on, not hide it. On a narrow
+     mat the post-it is short enough that the old position landed squarely on
+     its first two lines; these sit on the top edge instead. */
+  .drag-item-sticker-1 { bottom: 26%; left: 10%; }
+  .drag-item-sticker-2 { top: 4%; left: 48%; }
 
   .board-btn {
     padding: var(--space-2) var(--space-4);

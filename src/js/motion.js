@@ -32,6 +32,10 @@ export const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: 
  */
 export const BREAKPOINTS = {
   isDesktop: '(min-width: 861px)',
+  /* Drag affordances are about the INPUT DEVICE, not the width. A phone in
+     landscape is 932px wide and still has nothing but a finger, so gating a
+     drag on isDesktop hands it a touch-action:none trap. */
+  finePointer: '(hover: hover) and (pointer: fine)',
   isMobile: '(max-width: 860px)',
   hasRoomToPin: '(min-width: 861px) and (min-height: 700px)',
   // The exact inverse of hasRoomToPin. Kept next to it so the pinned scene and

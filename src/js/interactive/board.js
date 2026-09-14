@@ -33,7 +33,7 @@ export function initBoard() {
       item.setAttribute('tabindex', '0');
     }
     item.setAttribute('role', 'group');
-    item.setAttribute('aria-label', item.innerText ? item.innerText.slice(0, 40).trim() : 'Workbench item');
+    item.setAttribute('aria-label', describe(item));
 
     Draggable.create(item, {
       type: 'x,y',
@@ -108,6 +108,25 @@ export function initBoard() {
   }, { passive: true });
 
   bindControls(mat, items);
+}
+
+/**
+ * A readable name for one board item.
+ *
+ * `innerText` was the obvious choice and the wrong one: scenes/board.js writes
+ * autoAlpha:0 with immediateRender, so every item is visibility:hidden by the
+ * time this runs, and innerText reports "" for anything not rendered. The
+ * ternary guarding it therefore fell through on all seven items and gave them
+ * the same label. textContent ignores rendering and returns the real text.
+ */
+function describe(el) {
+  // Tag boundaries become spaces: textContent alone glues a <br> or </strong>
+  // straight onto the next word ("Latency win:Retrieval latency down").
+  const text = el.innerHTML.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  if (!text) return 'Workbench item';
+  if (text.length <= 60) return text;
+  // Trim back to a word boundary so the label never ends mid-word.
+  return text.slice(0, 60).replace(/\s+\S*$/, '') + '\u2026';
 }
 
 /** Keeps the dragged item on top without letting z-index grow without bound. */

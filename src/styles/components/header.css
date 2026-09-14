@@ -42,12 +42,12 @@
   min-height: 44px;
   min-width: 44px;
   justify-content: center;
-  background: rgba(250, 248, 245, 0.9);
+  background: var(--glass-pill);
   backdrop-filter: blur(12px);
   padding: var(--space-2) var(--space-5);
   border-radius: var(--radius-pill);
   border: 1px solid var(--border-header);
-  box-shadow: 0 4px 15px rgba(40, 30, 22, 0.05);
+  box-shadow: var(--shadow-glass);
   transition: transform var(--dur-base) var(--ease-smooth);
 }
 
@@ -84,12 +84,12 @@
    -------------------------------------------------------------------------- */
 .header-center-pill {
   pointer-events: auto;
-  background: rgba(250, 248, 245, 0.9);
+  background: var(--glass-pill);
   backdrop-filter: blur(12px);
   padding: var(--space-2) var(--space-5);
   border-radius: var(--radius-pill);
   border: 1px solid var(--border-header);
-  box-shadow: 0 4px 15px rgba(40, 30, 22, 0.05);
+  box-shadow: var(--shadow-glass);
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -105,14 +105,14 @@
   background: var(--color-live);
   border-radius: 50%;
   display: inline-block;
-  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  box-shadow: 0 0 0 0 var(--live-halo);
   animation: pulseGreen 2s infinite;
 }
 
 @keyframes pulseGreen {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 var(--live-halo); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px var(--live-halo-fade); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 var(--live-halo-fade); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -141,12 +141,12 @@
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  background: rgba(250, 248, 245, 0.92);
+  background: var(--glass-pill-strong);
   backdrop-filter: blur(12px);
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-pill);
   border: 1px solid var(--border-header);
-  box-shadow: 0 4px 15px rgba(40, 30, 22, 0.05);
+  box-shadow: var(--shadow-glass);
 }
 
 .header-nav::-webkit-scrollbar { display: none; }
@@ -188,7 +188,7 @@
 
 .nav-link:hover,
 .nav-link.active {
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
 }
 
 /* --------------------------------------------------------------------------
@@ -246,6 +246,19 @@
   .header-center-pill { display: none; }
 }
 
+/* The pill scrolls horizontally once five labels stop fitting, and its
+   scrollbar is hidden — without an edge fade the clipped link just looks like
+   the nav ends there. An earlier pass dropped this mask when the Workbench
+   link was hidden and only four labels remained; the link came back, the mask
+   did not. Measured 61px of hidden overflow at 390px.
+   Masked only while it can actually overflow, so the wide header stays crisp. */
+@media (max-width: 900px) {
+  .header-nav {
+    -webkit-mask-image: linear-gradient(to right, #000 85%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 85%, transparent 100%);
+  }
+}
+
 @media (max-width: 768px) {
   .site-header { padding: var(--space-3); }
   .site-brand { padding: var(--space-2) var(--space-3); gap: var(--space-2); }
@@ -268,5 +281,8 @@
 
 @media (max-width: 430px) {
   .header-inner { padding-inline: 0; gap: var(--space-1); }
-  .music-toggle-btn { width: 40px; height: 40px; }
+  /* No size override for the toggle here: shrinking the one round tap target
+     below 44px to buy the nav 8px trades the thing touch needs most for the
+     thing it needs least. The nav scrolls instead, and nav.js pulls the active
+     link into view. */
 }

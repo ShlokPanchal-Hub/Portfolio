@@ -5,7 +5,7 @@
    the whole section in at once reads as a slide.
    ========================================================================== */
 
-import { gsap, prefersReducedMotion, BREAKPOINTS } from '../../motion.js';
+import { gsap, prefersReducedMotion } from '../../motion.js';
 
 export function initBoardScene() {
   if (prefersReducedMotion) return;

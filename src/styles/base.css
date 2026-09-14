@@ -265,3 +265,60 @@ ul {
   margin: 0 auto;
   line-height: var(--leading-relaxed);
 }
+
+/* --------------------------------------------------------------------------
+   SPLIT SECTION HEADER
+   Every section opened the same way — centred tag, centred title, centred
+   subtitle — which makes five openings read as one repeated beat. Work and
+   About use this left-aligned variant instead, so the page alternates.
+   Sections whose content is itself centred (board, checklist, connect) keep
+   the centred header; a left header over centred content looks like a mistake.
+   -------------------------------------------------------------------------- */
+.section-header--split {
+  text-align: left;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  column-gap: var(--space-9);
+  align-items: end;
+}
+
+/* The tag pill spans both columns so the title and subtitle sit on one baseline. */
+.section-header--split .section-tag {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+.section-header--split .section-title {
+  margin-bottom: 0;
+  /* A grid item is blockified, so the inline-block shrink-wrap that keeps the
+     hand-drawn underline the width of the TEXT is lost — it stretched to the
+     full column and hung 228px past "What's his deal?". fit-content restores
+     it for short titles and clamps to the column for ones that wrap. */
+  width: fit-content;
+  max-width: 100%;
+  /* h1-h6 default to text-wrap:balance, which splits this title into two
+     equal short lines inside a box that is still full-column width — leaving
+     the underline hanging 228px past the text. In a fixed column there is
+     nothing to balance: let it fill the measure so the rule matches the text. */
+  text-wrap: wrap;
+}
+
+.section-header--split .section-subtitle {
+  margin: 0;
+  /* The centred variant caps at --measure-narrow to keep a centred block
+     readable; in a column that cap leaves the text stranded short. */
+  max-width: var(--measure);
+  padding-bottom: var(--space-2);
+}
+
+@media (max-width: 860px) {
+  .section-header--split {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--space-4);
+    align-items: start;
+  }
+
+  .section-header--split .section-subtitle {
+    padding-bottom: 0;
+  }
+}

@@ -14,7 +14,7 @@
   border-radius: var(--radius-pill);
   font-weight: 700;
   font-size: var(--text-md);
-  box-shadow: 0 10px 20px -5px rgba(227, 83, 66, 0.4), 0 4px 6px -2px rgba(227, 83, 66, 0.2);
+  box-shadow: var(--shadow-cta);
   transition:
     background var(--dur-base) var(--ease-smooth),
     transform var(--dur-base) var(--ease-smooth),
@@ -25,13 +25,13 @@
 .btn-copy-email:hover {
   background: var(--color-primary-dark);
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 14px 26px -4px rgba(227, 83, 66, 0.45);
+  box-shadow: var(--shadow-cta-hover);
 }
 
 .btn-scrapbook-primary:active,
 .btn-copy-email:active {
   transform: translateY(1px) scale(0.98);
-  box-shadow: 0 6px 12px -4px rgba(227, 83, 66, 0.35);
+  box-shadow: var(--shadow-cta-press);
 }
 
 .btn-copy-email {
@@ -61,7 +61,7 @@
 .btn-scrapbook-secondary:hover {
   background: var(--color-secondary-light);
   border-color: var(--color-primary);
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
   transform: translateY(-2px);
 }
 
@@ -96,7 +96,7 @@
 .board-btn:hover {
   background: var(--paper-card);
   border-color: var(--color-primary);
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
   transform: translateY(-2px);
 }
 
@@ -129,7 +129,7 @@
 
 .social-btn:hover {
   border-color: var(--color-primary);
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
   background: var(--paper-card);
   transform: translateY(-2px);
 }
